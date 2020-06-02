@@ -1,0 +1,20 @@
+item {
+  id:1
+  name:'clearCup'
+}
+item {
+  id:2
+  name:'coffeeCup'
+}
+item {
+  id:3
+  name:'fork'
+}
+item {
+  id:4
+  name:'knife'
+}
+item {
+  id:5
+  name:'spoon'
+}

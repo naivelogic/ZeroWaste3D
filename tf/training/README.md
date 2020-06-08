@@ -1,4 +1,5 @@
 
+```
 cat > mount_blob.sh
 #!/bin/sh
 sudo mkdir /mnt/blobfusetmp 
@@ -31,8 +32,14 @@ cd /ZeroWaste
 
 python training/model_main.py --model_dir /ZeroWaste/outputs/ssd_incpetion_v2_core_exp_030120 --pipeline_config_path /ZeroWaste/experiments/ssd_incpetion_v2/pipeline.config 
 
+```
 
 
+----
+#### Archive
+
+
+```
 
 #2 GPU DISTRIBUTED / PAREALLEL
 NV_GPU=0 nvidia-docker run -it -v /home/$USER/ZeroWaste:/ZeroWaste -p 8888:8888 -p 6006:6006 tensorflow/tensorflow:1.12.0-gpu-py3 bash
@@ -73,3 +80,8 @@ DETECTION_TFRECORD_PATH=/ZeroWaste/mnt/zerowaste_blob/models/evaluation/test_det
 python /ZeroWaste/mnt/zerowaste_blob/models/evaluation/confusion_matrix_dev.py --detections_record=${DETECTION_TFRECORD_PATH} --label_map=${LABELMAP_PATH} --output_path=${CONFUSION_MATRIX_PATH}
 
 cat /ZeroWaste/mnt/zerowaste_blob/models/experiments/feb20_hack/core/core_aug/ssd_v1_exp_aug_032320_step7k/confusion_matrix2.csv
+```
+
+
+Inference
+- https://github.com/tensorflow/models/tree/master/research/object_detection

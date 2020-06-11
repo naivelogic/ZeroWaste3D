@@ -11,8 +11,8 @@ from utils.data_augmentations import Compose, ConvertFromInts, ToAbsoluteCoords,
 def make_datapath_list(rootpath):
     imgpath = glob.glob(rootpath + '*_rgb.jpg')
     annpath = glob.glob(rootpath + '*_bbox.json')
-    #return imgpath[:60], annpath[:60]
-    return imgpath, annpath
+    return imgpath[:60], annpath[:60]
+    #return imgpath, annpath
 
 
 class Anno_json(object):

@@ -1,0 +1,80 @@
+# The python packages necessary to run ComputerVisionMastery
+#
+# Install : conda env create -f environment.yml
+# Update  : conda env update -f environment.yml --prune
+# Remove  : conda env remove -n cv
+
+name: cv
+# in order of priority: lowest (top) to highest (bottom)
+channels:
+  - default
+  - conda-forge
+  - pytorch
+dependencies:
+  # Core
+  - python>=3.7 # the latest python release running on dev machine
+  - cython # wrapping Python around C. C is fast.
+  
+  
+  # Image Processing Libraries
+  - opencv
+  - imgaug
+  - pillow # classic fork of Python Imaging Library (Pillow==6.1.0)
+  - scikit-image # image processing https://scikit-image.org/docs/stable/install.html
+  - imageio
+  
+  # Data Processing and Viz
+  - pandas # working with tabulated data  (pandas==0.25.1)
+  - numpy  # essential math and matrix operations
+  - matplotlib # classic plotting  (matplotlib==3.1.1) or >=3.0.1
+  - scipy # numerical methods
+  - seaborn
+  - shapely
+  
+  # Machine Learning
+  - scikit-learn # machine learning
+  - pycocotools
+  
+
+  
+  # Tensorflow dependencies
+  - h5py # for the ubiquitous HDF5 file format. (h5py==2.7.0)
+  - keras # deep learning library (keras==2.0.2)
+  - keras-applications # pre-trained weights architectures for VGG* ResNet*
+  - keras-preprocessing # data preprocessing and data augmentation module
+  - tensorflow # deep learning backend for keras
+  - tensorflow-gpu=1.13.1
+  - protobuf
+
+  # Jupyter Notebook Dependencies
+  - jupyter # great tool for any python project.
+  - nb_conda_kernels
+  - ipykernel
+  - jupyterlab
+  - ipywidgets
+  - tqdm # popular progress bar for jupyter
+
+  ### the `nb_conda_kernels` and `ipykernel` packages are installed so that we
+  ### can use Jupyter Notebooks with this environment as a kernel
+  ### to install the cv jupyter kneral for all conda environment 
+  ### conda activate cv
+  ### python -m ipykernel install --user --name cv
+
+  # PyTorch
+  - torchvision
+  #- pytorch3d < this did not work for me under conda > this did> pip install pytorch3d
+  #- tensorboardx
+
+  # MISC
+  - pylint
+  - autopep8
+  #- pyyaml
+  - requests
+
+  - pip:
+    - pytorch3d
+    - azure-storage-blob>=1.5.0, <=2.1.0   # doc: https://azure-storage.readthedocs.io - this will go to versions prior to v12 update
+    - argparse
+    - Imath
+     
+# more enhancements here: https://github.com/microsoft/AKSDeploymentTutorialAML/blob/master/.ci/azure-pipelines.yml

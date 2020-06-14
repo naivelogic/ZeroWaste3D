@@ -1,0 +1,11 @@
+[submodule "Mask/Mask_RCNN"]
+	path = Mask/Mask_RCNN
+	url = https://github.com/matterport/Mask_RCNN
+
+#[submodule "cocoapi"]
+#	path = cocoapi
+#	url = https://github.com/cocodataset/cocoapi
+
+#[submodule "maskrcnn-benchmark"]
+#	path = maskrcnn-benchmark
+#	url = git@github.com:facebookresearch/maskrcnn-benchmark.git

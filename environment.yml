@@ -76,5 +76,6 @@ dependencies:
     - azure-storage-blob>=1.5.0, <=2.1.0   # doc: https://azure-storage.readthedocs.io - this will go to versions prior to v12 update
     - argparse
     - Imath
-     
+
+#pip install azureml-sdk     
 # more enhancements here: https://github.com/microsoft/AKSDeploymentTutorialAML/blob/master/.ci/azure-pipelines.yml

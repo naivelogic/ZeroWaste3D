@@ -38,6 +38,15 @@ conda activate cv
 git submodule update --init --recursive
 ```
 
+Installing [**detectron2**](https://github.com/facebookresearch/detectron2)
+
+```
+pip3 install -U torch torchvision cython
+pip3 install -U 'git+https://github.com/facebookresearch/fvcore.git' 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
+git3 clone https://github.com/facebookresearch/detectron2 detectron2_repo
+pip3 install -e detectron2_repo
+```
+
 
 ### ZeroWaste COCO Dataset - Setup
 

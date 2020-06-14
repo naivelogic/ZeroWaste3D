@@ -46,8 +46,10 @@ class MaskManager:
     def __init__(self, dataset_config_path):
         self.masks = dict()
         self.super_categories = dict()
+        self.custom_classes = dict()
         self.resave_masks = False
         self.test_train_val_flag = False
+        self.custom_classes_flag = False        # used to add a experimental custom class (e.g., instead of fork/spoon all are utensels)
         self.dataset_config_path = dataset_config_path
 
         self.mask_colors = { 
@@ -66,18 +68,6 @@ class MaskManager:
         }
 
         self.categories = ["fork", "spoon", "knife", "coffeeCup", "clearCup"]
-        
-        self.super_categories_v2 = {
-            "fork":"ms_utensils", 
-            "spoon":"ms_utensils", 
-            "knife":"ms_utensils", 
-            'coffeeCup':'coffeeCup', 
-            'clearCup':'clearCup'}
-        self.get_super_categories_v2 = {
-            'ms_utensils': ['fork', 'spoon', 'knife'],
-            'coffeeCup': ['coffeeCup'],
-            'clearCup':['clearCup']
-        }
 
         self.super_categories = {
             "fork":"fork", 
@@ -187,14 +177,13 @@ class MaskManager:
         cv2.imwrite(outMask_path, outMaskImageForViewing)
         return outMask_path
         
-
-    def make_datapath_list(self, path):
+    def make_datapath_list(self, path, sample_amount=0.1):
         mask_paths = glob.glob(path + "*mask.png")
         masklen = len(mask_paths)-1
         #masklen=10
         mask_paths = mask_paths[:masklen+1]
 
-        sample =  round(masklen * .1)
+        sample =  round(masklen * sample_amount)
 
         train_, val_ = mask_paths[-masklen+sample:], mask_paths[:-masklen+sample]
         
@@ -225,7 +214,9 @@ class MaskManager:
             for id in instanceLabels.keys():        
                 for label in self.categories:
                     if label in instanceLabels[id]['Name']:
-                        instanceLabels[id]['CategoryPath'] = label 
+                        if self.custom_classes_flag == True: 
+                            label = self.custom_classes[label]
+                        instanceLabels[id]['CategoryPath'] = label
                         color_categories[str(self.mask_colors[label])] = {
                             "category": label,
                             "super_category": self.super_categories[label]
@@ -236,7 +227,7 @@ class MaskManager:
                 
                 outMaskImageForViewing = createColorMaskImage(instanceImage, instanceLabels, 'CategoryPath', self.colorMapping)
                 mask_path = os.path.join(self.resave_mask_path,instance_name+"mask_.png" )
-                cv2.imwrite(mask_path, outMaskImageForViewing)
+                #cv2.imwrite(mask_path, outMaskImageForViewing) ## uncomment if new dataset
 
                 """
                 self.last_mask = {
@@ -247,7 +238,7 @@ class MaskManager:
                 }
                 """
 
-                #mask_path = self.resave_mask_png(instanceImagePath, instanceLabels, instance_name)
+                ##(old)#mask_path = self.resave_mask_png(instanceImagePath, instanceLabels, instance_name)
 
             self.add_mask(
                 rgb_path,

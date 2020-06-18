@@ -1,5 +1,12 @@
+## Preprocessing Data for Training
+
+After we have the label images data preparation for training includes creating the data in a format the torch/tensorflow/ect can use to interpret the image pixels, annotations and metadata. We are using the COCO format.
+
+For more information check out the [official documentation on Detectron2 data setup and regestration](https://detectron2.readthedocs.io/tutorials/datasets.html#register-a-dataset). 
 
 
+----
+# Notes
 
 Bounding box formats:
 

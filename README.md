@@ -1,7 +1,6 @@
 # ZeroWaste3D
 Reducing Waste Contamination _(e.g., pepsi can in compost bin)_ with 3D Reconstruction using Photogrammetry. 
 
-![](media/sample_images/3d_reconstruction_girl.png)
 
 ## Summary
 

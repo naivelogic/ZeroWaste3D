@@ -108,3 +108,4 @@ notes.md
 __pycache__
 .ipynb_checkpoints
 *dev/
+*s-*.yml

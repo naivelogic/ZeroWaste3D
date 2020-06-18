@@ -2,6 +2,10 @@
 	path = Mask/Mask_RCNN
 	url = https://github.com/matterport/Mask_RCNN
 
+[submodule "Mask/detectron2"]
+	path = detectron2
+	url = https://github.com/facebookresearch/detectron2.git
+
 #[submodule "cocoapi"]
 #	path = cocoapi
 #	url = https://github.com/cocodataset/cocoapi

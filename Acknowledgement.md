@@ -2,10 +2,9 @@
 
 Some code is modified and network pre-trained weights are obtained from the following repositories:
 
-If you use YOLACT or this code base in your work, please cite
-
 ```BibTeX
 
+#Detectron2
 @misc{wu2019detectron2,
   author =       {Yuxin Wu and Alexander Kirillov and Francisco Massa and
                   Wan-Yen Lo and Ross Girshick},

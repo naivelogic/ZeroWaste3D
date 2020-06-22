@@ -70,6 +70,7 @@ dependencies:
   - autopep8
   #- pyyaml
   - requests
+  - environs
 
   - pip:
     - pytorch3d

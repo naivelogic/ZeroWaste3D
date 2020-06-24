@@ -44,11 +44,12 @@ def display_images(images, titles=None, cols=4, cmap=None, norm=None,
     """
     titles = titles if titles is not None else [""] * len(images)
     rows = len(images) // cols + 1
-    plt.figure(figsize=(14, 14 * rows // cols))
+    #plt.figure(figsize=(14, 14 * rows // cols))
+    plt.figure(figsize=(30, 30 * rows // cols))
     i = 1
     for image, title in zip(images, titles):
         plt.subplot(rows, cols, i)
-        plt.title(title, fontsize=9)
+        plt.title(title, fontsize=15)
         plt.axis('off')
         plt.imshow(image.astype(np.uint8), cmap=cmap,
                    norm=norm, interpolation=interpolation)

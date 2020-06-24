@@ -151,6 +151,7 @@ class AnnotationJsonUtils():
             annotation['image_id'] = self.image_id
             if not self.category_ids.get(key):
                 print(f'category color not found: {key}; check for missing category or antialiasing')
+                print(f'did not find: {key} on {self.image_id}')
                 continue
             annotation['category_id'] = self.category_ids[key]
             annotation['id'] = self._next_annotation_id()

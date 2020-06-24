@@ -10,8 +10,8 @@ print(run)
 
 
 print(f'\ndirectory listing (currnt): \n{os.listdir("./")}')
-shutil.copy("./custom_yolact_config.py", "/yolact/data/config.py")
-shutil.copy("./custom_yolact_trainer.py", "/yolact/train.py")
+shutil.copy("./code/custom_yolact_config.py", "/yolact/data/config.py")
+shutil.copy("./code/custom_yolact_trainer.py", "/yolact/train.py")
 print("moved file")
 print(f'\ndirectory listing (yolact): \n{os.listdir("/yolact/")}')
 
@@ -41,7 +41,7 @@ TRAIN_PATH = os.path.join(MASKS_PATHS, 'ds1_3class_train_coco_instances.json')
 VAL_PATH = os.path.join(MASKS_PATHS, 'ds1_3class_val_coco_instances.json')
 TEST_PATH = os.path.join(MASKS_PATHS, 'ds1_3class_test_coco_instances.json')
 
-print(f'currenting ALM aguments before train defauls': args.__dict__)
+print(f'currenting ALM aguments before train defauls {args.__dict__}')
 
 sys.path.append("/yolact/") # go to parent dir
 from train import *

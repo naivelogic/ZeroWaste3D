@@ -1,5 +1,18 @@
 Yolact (19), Yolact++ test results
 
+## Dataset
+
+ Distribution of instances among all 3 categories:
+|  category  | #instances   |  category  | #instances   |  category  | #instances   |
+|:----------:|:-------------|:----------:|:-------------|:----------:|:-------------|
+|  utensils  | 95           | coffeeCup  | 81           |  clearCup  | 81           |
+|            |              |            |              |            |              |
+|   total    | 257          |            |              |            |              |
+
+
+
+
+
 - lr = 0.02
 - warmsup step
 

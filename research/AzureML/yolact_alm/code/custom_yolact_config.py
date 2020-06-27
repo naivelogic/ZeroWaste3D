@@ -202,6 +202,17 @@ zerowaste_ds1_3c_mnt_dataset = dataset_base.copy({
   'label_map': { 1:  1,  2:  2,  3:  3 }
 })
 
+planes_dataset = dataset_base.copy({
+  'name': 'planes_dataset',
+  'train_info': 'mnt/project_zero/planes_dataset/train/coco_annotations.json',
+  'train_images': 'mnt/project_zero/planes_dataset/train/images/',
+  'valid_info': 'mnt/project_zero/planes_dataset/val/coco_annotations.json',
+  'valid_images': 'mnt/project_zero/planes_dataset/val/images/',
+  'class_names': ('planes'),
+  'label_map': { 1:  1}
+})
+
+
 # ----------------------- TRANSFORMS ----------------------- #
 
 resnet_transform = Config({
@@ -817,6 +828,22 @@ yolact_resnet50_zwds1_3c_mnt_config = yolact_resnet50_config.copy({
     })
     
 })
+
+planes_yolact_resnet50_config = yolact_resnet50_config.copy({
+    'name': 'planes_yolact_resnet50',
+    # Dataset stuff
+    'dataset': planes_dataset,
+    'num_classes': len(planes_dataset.class_names) + 1,
+
+    # Image Size
+    'max_size': 512,
+    'backbone': yolact_resnet50_config.backbone.copy({
+        'path': '/mnt/project_zero/pretrained_models/weights/yolact/resnet50-19c8e357.pth'
+    #    'path': '/home/redne/mnt/project_zero/pretrained_models/weights/yolact/resnet50-19c8e357.pth'
+    })
+    
+})
+
 
 
 # ----------------------- YOLACT++ CONFIGS ----------------------- #

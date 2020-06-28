@@ -13,6 +13,11 @@ We utilize [Detectron2](https://github.com/facebookresearch/detectron2) as the b
       - [Installation](#installation)
     - [ZeroWaste COCO Dataset - Setup](#zerowaste-coco-dataset---setup)
   - [Getting Started](#getting-started)
+    - [Get pretrained model](#get-pretrained-model)
+  - [Training](#training)
+    - [Training - Quickstart](#training---quickstart)
+    - [Training from scratch](#training-from-scratch)
+    - [Training from pretrained checkpoint](#training-from-pretrained-checkpoint)
     - [Troubleshooting](#troubleshooting)
       - [Mask RCNN Errors](#mask-rcnn-errors)
     - [References](#references)
@@ -50,7 +55,26 @@ pip3 install -e detectron2_repo
 
 ### ZeroWaste COCO Dataset - Setup
 
-TODO
+The location of the ZeroWaste Azure Blob can be accessed here: _[TODO]:need to add link and locaiton and access instructions_
+
+And make sure to put the files as the following structure:
+```
+zerowasteimages
+├── dataset_config
+|   ├── ds1_3class_test_coco_instances.json
+│   ├── ds1_3class_test_mask_definitions.json
+│   ├── ds1_3class_train_coco_instances.json
+│   ├── ds1_3class_train_mask_definitions.json
+│   ├── ...
+|
+└── images
+    ├── imagedb
+    ├── raw
+    ├── masked
+    ├── augmentations
+    ├── ...
+```
+When training, change the root path to your own data path.
 
 
 ## Getting Started
@@ -60,6 +84,38 @@ git submodule update --init --recursive
 ```
 
 pretrain model: https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5
+
+### Get pretrained model
+Download pretrained ResNet50 params from the following url.
+```
+mkdir pretrained_model
+cd pretrained_model
+wget https://download.pytorch.org/models/resnet50-19c8e357.pth
+mv resnet50-19c8e357.pth resnet50.pth
+```
+Get the pretrained RetinaNet by run the script:
+```
+cd network
+python get_state_dict.py
+```
+
+
+## Training
+
+
+### Training - Quickstart
+
+### Training from scratch
+
+TODO
+
+### Training from pretrained checkpoint
+
+For cases where we need to `resume` or `load_checkpoint` we use the following argmuent:
+
+```
+python train.py --config=yolact_base_config --resume=weights/yolact_base_10_32100.pth --start_iter=-1
+```
 
 
 

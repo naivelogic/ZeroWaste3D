@@ -202,14 +202,15 @@ zerowaste_ds1_3c_mnt_dataset = dataset_base.copy({
   'label_map': { 1:  1,  2:  2,  3:  3 }
 })
 
-planes_dataset = dataset_base.copy({
-  'name': 'planes_dataset',
-  'train_info': 'mnt/project_zero/planes_dataset/train/coco_annotations.json',
-  'train_images': 'mnt/project_zero/planes_dataset/train/images/',
-  'valid_info': 'mnt/project_zero/planes_dataset/val/coco_annotations.json',
-  'valid_images': 'mnt/project_zero/planes_dataset/val/images/',
-  'class_names': ('planes'),
-  'label_map': { 1:  1}
+
+zerowaste_ds2_mnt_dataset = dataset_base.copy({
+  'name': 'zerowaste_ds2_mnt_dataset',
+  'train_info': '/mnt/project_zero/ds1/experiments/dataset_config/ds2_3c_train_coco_instances.json',
+  'train_images': '/mnt/project_zero/ds1/parsed/',
+  'valid_info': '/mnt/project_zero/ds1/experiments/dataset_config/ds2_3c_val_coco_instances.json',
+  'valid_images': '/mnt/project_zero/ds1/parsed/',
+  'class_names': ('utensils', 'coffeeCup', 'clearCup'),
+  'label_map': { 1:  1,  2:  2,  3:  3 }
 })
 
 
@@ -829,21 +830,6 @@ yolact_resnet50_zwds1_3c_mnt_config = yolact_resnet50_config.copy({
     
 })
 
-planes_yolact_resnet50_config = yolact_resnet50_config.copy({
-    'name': 'planes_yolact_resnet50',
-    # Dataset stuff
-    'dataset': planes_dataset,
-    'num_classes': len(planes_dataset.class_names) + 1,
-
-    # Image Size
-    'max_size': 512,
-    'backbone': yolact_resnet50_config.backbone.copy({
-        'path': '/mnt/project_zero/pretrained_models/weights/yolact/resnet50-19c8e357.pth'
-    #    'path': '/home/redne/mnt/project_zero/pretrained_models/weights/yolact/resnet50-19c8e357.pth'
-    })
-    
-})
-
 
 
 # ----------------------- YOLACT++ CONFIGS ----------------------- #
@@ -908,29 +894,6 @@ yolact_plus_resnet50_zw1_3c_exp2_config = yolact_plus_base_config.copy({
 })
 
 
-yolact_plus_resnet50_zw1_3c_mnt_x1_config = yolact_plus_base_config.copy({
-    'name': 'yolact_plus_resnet50_zw1_3c_mnt_x1',
-
-    'backbone': resnet50_dcnv2_backbone.copy({
-        'path': '/mnt/project_zero/pretrained_models/weights/yolact/yolact_plus_resnet50_54_800000.pth',
-        'selected_layers': list(range(1, 4)),
-        
-        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
-        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
-        'use_pixel_scales': True,
-        'preapply_sqrt': False,
-        'use_square_anchors': False,
-    }),
-    'dataset': zerowaste_ds1_3c_mnt_dataset,
-    'num_classes': len(zerowaste_ds1_3c_mnt_dataset.class_names) + 1,
-    # Training params
-    'max_iter': 7000,
-    # 'lr': 1e-4,
-    # 'momentum': 0.9,
-    # 'decay': 5e-4,
-    # 'gamma': 0.1,
-    'lr_steps': (.35 * 7000, .75 * 7000, .88 * 7000, .93 * 7000),
-})
 
 
 yolact_plus_resnet50_zw1_3c_mnt_x1_config = yolact_plus_base_config.copy({
@@ -1008,6 +971,33 @@ yolactpp_r50_ds1_x7_config = yolact_plus_base_config.copy({
     # 'gamma': 0.1,
     'lr_steps': (.35 * 1500, .75 * 1500, .88 * 1500, .93 * 1500),
 
+})
+
+
+
+
+yolactpp_r50_ds2_x1_config = yolact_plus_base_config.copy({
+    'name': 'yolactpp_r50_ds2_x1',
+
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'path': '/mnt/project_zero/pretrained_models/weights/yolact/yolact_plus_resnet50_54_800000.pth',
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': zerowaste_ds2_mnt_dataset,
+    'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
+    # Training params
+    'max_iter': 7000,
+    # 'lr': 1e-4,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 7000, .75 * 7000, .88 * 7000, .93 * 7000),
 })
 
 

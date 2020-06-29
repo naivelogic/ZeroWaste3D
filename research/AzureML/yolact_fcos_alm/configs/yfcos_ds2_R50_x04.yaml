@@ -1,0 +1,35 @@
+_BASE_: "Base-FCOS.yaml"
+OUTPUT_DIR: "yfcos_ds2_R50_x04"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+  FCOS:
+    NORMALIZE_REG_TARGETS: True  # normalizing the regression targets with FPN strides
+    #SCORE_THRESH_TEST: 0.6       # set the testing threshold for this model    # (original - 0.05)  - https://github.com/AlbertJimenezTauste/M5-Group8/blob/master/Week6/task-b-2/eval.py
+    NUM_CLASSES: 3               # 3 classes (utensiles, coffeeCup, clearCup)
+  #ROI_HEADS:
+    #SCORE_THRESH_TEST: 0.6       # set the testing threshold for this model    # (original - 0.05)  - https://github.com/AlbertJimenezTauste/M5-Group8/blob/master/Week6/task-b-2/eval.py
+  #RETINANET:
+    #SCORE_THRESH_TEST: 0.6       # set the testing threshold for this model    # (original - 0.05)  - https://github.com/AlbertJimenezTauste/M5-Group8/blob/master/Week6/task-b-2/eval.py
+INPUT:
+  MIN_SIZE_TRAIN: (800,)
+  #MASK_FORMAT: 'bitmask' # - https://github.com/AlbertJimenezTauste/M5-Group8/blob/master/Week6/task-b-2/eval.py
+SOLVER:
+  WARMUP_METHOD: "constant"
+  WARMUP_FACTOR: 0.3333
+  WARMUP_ITERS: 500 #500
+
+  # custom udpates for using 1 GPU - https://github.com/bongjoonhyun/fcos/blob/master/EE898_PA1_2020_rev2/PA1_FCOS_2020_rev2.pdf
+  #STEPS: (500, )
+  #MAX_ITER: 300 #500
+  IMS_PER_BATCH: 2 # 1 GPU - can be 4 - https://github.com/intelpro/PA1/blob/master/run.sh
+  BASE_LR: 0.001
+  #CHECKPOINT_PERIOD: 300 # https://medium.com/towards-artificial-intelligence/number-plate-detection-recognition-detectron-v2-5ddad2a532d0
+DATASETS:
+  TRAIN: ("custom_dataset_train","custom_dataset_val")
+  TEST: ("custom_dataset_test",)
+DATALOADER:
+    NUM_WORKERS: 1 #4 # this should ALWAYS be left at 1 because it will double or more memory usage if higher.
+#TEST:
+  #EVAL_PERIOD: 800 # https://github.com/AlbertJimenezTauste/M5-Group8/blob/master/Week6/task-b-2/eval.py

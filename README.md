@@ -16,14 +16,16 @@ Based on the work from the previous ZeroWaste 2018 and 2019 Hackathons __[TODO:]
 
 __TODO__
 
+## Results
 
-### Results
-|      Experiment     |               Model               | mAP@0.5      (accuracy) |   Loss   | Iteration |                 Model Name                |
-|:-------------------:|:---------------------------------:|:-----------------------:|:--------:|:---------:|:-----------------------------------------:|
-| utensils combined   | ssd mobilenet   v1 FPN            | 0.975                   | 0.488    | 6336      | ds0_v1_ssd_fpn_bc01_052420_step6k         |
-| utensils   combined | ssdlite v2                        | 0.924                   | 0.999    | 20000     | ds0_v1_ssdlitev2_bc01_052420_step20k      |
-| utensils combined   | faster rcnn   inception resnet v2 | 0.934                   | Missing  | 8468      | ds0_v1_frcnn_iresnetv2_baselinec01_052420 |
-| baseline   - ds 1   | ssdlite v2                        | 0.892                   | 1.058    | 20000     | ds1v0_ssdlitev2_060220_step20k            |
-| baseline - ds 1     | frcnn resnet50                    | 0.933                   | 0.366    | 50000     | ds1v0_frcnn_resnet50_060220_step50k       |
-| baseline   - ds 1   | faster rcnn inception resnet v2   | 0.960                   | 0.432    | 50000     | ds1v0_frcnn_iresnetv2_060220_step50k      |
-| baseline - ds 1     | faster rcnn   inception v2        | 0.880                   | 0.503    | 50000     | ds1v0_frcnn_incpetionv2_060220_step50k    |
+## Instance Segmentation (Summary)
+
+Below are a highlight in key results from Instance Segmentation training. For more details please refer to [InstanceSegmentation](InstnaceSegmentation/Data-Processing.md)
+
+
+
+| Model       | Backbone | Head      | Data | Date   | lr | AP   | AP50 | AP75 | APs  | APm  | APl  | 
+| ----------- | -------- | --------- | ---- | ------ | -- | ---- | ---- | ---- | ---- | ---- | ---- |
+| Yolact_fcos | R50-C4   | C5-512ROI | ds 1 | 061620 | 1X | 15.3 | 34.1 | 9.16 | nan  | 25.7 | 14.5 |
+| Yolact_fcos | R50-C4   | C5-128ROI | ds 2 | 062820 | 1X | 7.42 | 21.5 | 1.61 | nan  | 31.5 | 7.56 |
+

@@ -59,6 +59,13 @@ dependencies:
   ### to install the cv jupyter kneral for all conda environment 
   ### conda activate cv
   ### python -m ipykernel install --user --name cv
+  ###
+  ### Azure Widgets install
+  ### pip install --upgrade azureml-sdk[notebooks,contrib] 
+  ### conda install ipywidgets
+  ### jupyter nbextension install --py --user azureml.widgets
+  ### jupyter nbextension enable azureml.widgets --user --py
+  ### need to restart jupyter after this
 
   # PyTorch
   - torchvision

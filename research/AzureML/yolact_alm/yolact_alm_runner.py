@@ -1,3 +1,4 @@
+#custom_docker_image='yolact:1'
 import sys, os, shutil
 
 import argparse
@@ -37,9 +38,13 @@ LOGS_AND_MODEL_DIR = args.output_folder
 MASKS_PATHS = args.masks_folder
 IMG_PATHS = args.img_folder
 
-TRAIN_PATH = os.path.join(MASKS_PATHS, 'ds1_3class_train_coco_instances.json')
-VAL_PATH = os.path.join(MASKS_PATHS, 'ds1_3class_val_coco_instances.json')
-TEST_PATH = os.path.join(MASKS_PATHS, 'ds1_3class_test_coco_instances.json')
+print('WHAT ISN THE DATA CONFIG FOLDER??')
+print(MASKS_PATHS)
+
+
+TRAIN_PATH = os.path.join(MASKS_PATHS, 'ds2_3c_train_coco_instances.json')
+VAL_PATH = os.path.join(MASKS_PATHS, 'ds2_3c_val_coco_instances.json')
+TEST_PATH = os.path.join(MASKS_PATHS, 'ds2_3c_test_coco_instances.json')
 
 print(f'currenting ALM aguments before train defauls {args.__dict__}')
 
@@ -55,7 +60,7 @@ cfg.dataset.train_info = TRAIN_PATH
 cfg.dataset.valid_images = IMG_PATHS    
 cfg.dataset.valid_info = VAL_PATH  
 
-cfg.backbone.path = os.path.join(DATA_FOLDER,'experiments/pretrained_models/weights/yolact/yolact_plus_resnet50_54_800000.pth') 
+cfg.backbone.path = os.path.join(DATA_FOLDER,'03-experiments/01-pretrained_models/yolact_plus_resnet50_54_800000.pth') 
 
 
 

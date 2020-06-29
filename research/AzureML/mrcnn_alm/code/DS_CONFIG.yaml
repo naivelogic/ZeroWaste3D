@@ -1,0 +1,13 @@
+DATE: 062820
+DATASET_DETAILS:
+    VERSION: ds2
+    
+FOLDERS:
+    MNT_DATA_FOLDER: '/mnt/zerowastepublic/'
+    DATASET_CONFIG_FOLDER: '02-datasets/ds2/dataset_config/'
+    IMAGE_FOLDER: '02-datasets/ds2/images/'
+
+COCO_DATASET:
+    TRAIN: ds2_3c_train_coco_instances.json
+    VAL: ds2_3c_val_coco_instances.json
+    TEST: ds2_3c_test_coco_instances.json

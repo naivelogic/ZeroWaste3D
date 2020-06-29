@@ -28,25 +28,58 @@ run = Run.get_context()
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
 ap.add_argument('--data-folder', type=str, dest='data_folder', help='data folder mounting point')
-ap.add_argument("-w", "--weights", help="optional path to pretrained weights")
+#ap.add_argument("-w", "--weights", help="optional path to pretrained weights")
 #ap.add_argument("-m", "--mode", help="train or investigate")
 args = vars(ap.parse_args())
 
 data_folder = args["data_folder"]
+DATA_FOLDER = data_folder
+print('Data folder:', DATA_FOLDER)
 
-print('Data folder:', data_folder)
+print(">>> DATA CONFIGS >>>")
+print(os.listdir(DATA_FOLDER))
 
 # get the file paths on the compute
 # '/home/redne/mnt/project_zero/project_zero/ds1/experiments/dataset_config/train_coco_instances.json'
 # '/home/redne/mnt/project_zero/project_zero/ds1/parsed'
-IMAGES_PATHS = os.path.join(os.path.abspath("."),data_folder, '02-datasets/ds2/images')
-MASKS_PATHS = os.path.join(os.path.abspath("."),data_folder, '02-datasets/ds2/dataset_config')
+#IMAGES_PATHS = os.path.join(os.path.abspath("."),data_folder, 'project_zero/ds1/parsed')
+#MASKS_PATHS = os.path.join(os.path.abspath("."),data_folder, 'project_zero/ds1/experiments/dataset_config')
 
+#import yaml
+#from yacs.config import CfgNode as new_cfg
+
+
+#ds_cfg_dict = yaml.load(open("./DS_CONFIG.yaml"))
+#ds_cfg = new_cfg(ds_cfg_dict)
+#print("below is the DS_CONFIG from yacs")
+#print(ds_cfg)
+
+
+# Register Custom Dataset
+#MASKS_PATHS = os.path.join(DATA_FOLDER, ds_cfg.FOLDERS.DATASET_CONFIG_FOLDER)
+#IMG_PATHS = os.path.join(DATA_FOLDER, ds_cfg.FOLDERS.IMAGE_FOLDER)
+
+#TRAIN_PATH = os.path.join(MASKS_PATHS, ds_cfg.COCO_DATASET.TRAIN)
+#VAL_PATH = os.path.join(MASKS_PATHS, ds_cfg.COCO_DATASET.VAL)
+#TEST_PATH = os.path.join(MASKS_PATHS, ds_cfg.COCO_DATASET.TEST)
+
+
+MASKS_PATHS = os.path.join(DATA_FOLDER, '02-datasets/ds2/dataset_config/')
+print(">>> DATA CONFIGS >>>")
+print(MASKS_PATHS)
+print(os.listdir(MASKS_PATHS))
+print(">>> END DATA CONFIGS >>>")
+IMG_PATHS = os.path.join(DATA_FOLDER, '02-datasets/ds2/images/')
+
+TRAIN_PATH = os.path.join(MASKS_PATHS, 'ds2_3c_train_coco_instances.json')
+VAL_PATH = os.path.join(MASKS_PATHS, 'ds2_3c_val_coco_instances.json')
+TEST_PATH = os.path.join(MASKS_PATHS, 'ds2_3c_test_coco_instances.json')
 
 print("#################################################")
-print(IMAGES_PATHS)
+print(IMG_PATHS)
 print("#################################################")
 print(MASKS_PATHS)
+print(f'Train COCO INSTNACE PATH: {TRAIN_PATH}')
 
 
 # initialize the path to the Mask R-CNN pre-trained on COCO
@@ -67,10 +100,10 @@ os.makedirs(LOGS_AND_MODEL_DIR, exist_ok=True)
 
 # Configuration
 class x2_BaseConfig(Config):
-    NAME = "maskrcnn_x3bc"
+    NAME = "maskrcnn_ds2_x3"
     BACKBONE = "resnet50"
     LEARNING_RATE = 0.001
-    GPU_COUNT = 1
+    GPU_COUNT = 1#2
     IMAGES_PER_GPU = 1
 
     # Number of classes (including background)
@@ -185,11 +218,11 @@ class CocoLikeDataset(utils.Dataset):
 
 # Create the Training and Validation Datasets
 dataset_train = CocoLikeDataset()
-dataset_train.load_data(MASKS_PATHS + '/ds2_3c_train_coco_instances.json', IMAGES_PATHS)
+dataset_train.load_data(TRAIN_PATH, IMG_PATHS)
 dataset_train.prepare()
 
 dataset_val = CocoLikeDataset()
-dataset_val.load_data(MASKS_PATHS + '/ds2_3c_val_coco_instances.json', IMAGES_PATHS)
+dataset_val.load_data(VAL_PATH, IMG_PATHS)
 dataset_val.prepare()
 
 #Create the Training Model and Train

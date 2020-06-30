@@ -816,20 +816,6 @@ yolact_resnet50_zwds1_3label_config = yolact_resnet50_config.copy({
     'max_size': 512,
 })
 
-yolact_resnet50_zwds1_3c_mnt_config = yolact_resnet50_config.copy({
-    'name': 'yolact_resnet50_zwds1_3c_mnt',
-    # Dataset stuff
-    'dataset': zerowaste_ds1_3c_mnt_dataset,
-    'num_classes': len(zerowaste_ds1_3c_mnt_dataset.class_names) + 1,
-
-    # Image Size
-    'max_size': 512,
-    'backbone': yolact_resnet50_config.backbone.copy({
-        'path': '/mnt/project_zero/pretrained_models/weights/yolact/resnet50-19c8e357.pth'
-    })
-    
-})
-
 
 
 # ----------------------- YOLACT++ CONFIGS ----------------------- #
@@ -983,6 +969,7 @@ yolactpp_r50_ds2_x1_config = yolact_plus_base_config.copy({
         'path': '/mnt/project_zero/pretrained_models/weights/yolact/yolact_plus_resnet50_54_800000.pth',
         'selected_layers': list(range(1, 4)),
         
+        # updatd aspect ratios
         'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
         'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
         'use_pixel_scales': True,
@@ -991,6 +978,7 @@ yolactpp_r50_ds2_x1_config = yolact_plus_base_config.copy({
     }),
     'dataset': zerowaste_ds2_mnt_dataset,
     'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
+
     # Training params
     'max_iter': 7000,
     # 'lr': 1e-4,
@@ -998,6 +986,67 @@ yolactpp_r50_ds2_x1_config = yolact_plus_base_config.copy({
     # 'decay': 5e-4,
     # 'gamma': 0.1,
     'lr_steps': (.35 * 7000, .75 * 7000, .88 * 7000, .93 * 7000),
+})
+
+yolactpp_r50_ds2_x2_config = yolact_plus_base_config.copy({
+    'name': 'yolactpp_r50_ds2_x2',
+
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        # kepted updatd aspect ratios from x1
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': zerowaste_ds2_mnt_dataset,
+    'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
+
+    
+    'preserve_aspect_ratio': True,      # experiment 2 update to preserve original image aspect ratio
+    'augment_expand': False,            # Disable augment_expand to avoid memory overflow
+    # Training params
+    'max_iter': 20000,
+    'lr_steps': (.35 * 20000, .75 * 20000, .88 * 20000, .93 * 20000),
+})
+
+yolactpp_r50_ds2_x0_config = yolact_plus_base_config.copy({
+    'name': 'yolactpp_r50_ds2_x0',
+
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': zerowaste_ds2_mnt_dataset,
+    'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
+
+    
+    'preserve_aspect_ratio': True,      # experiment 2 update to preserve original image aspect ratio
+    'augment_expand': False,            # Disable augment_expand to avoid memory overflow
+    # Training params
+    'max_iter': 20000,
+    'lr_steps': (.35 * 20000, .75 * 20000, .88 * 20000, .93 * 20000),
+})
+
+yolact_r50_ds2_x0_config = yolact_resnet50_config.copy({
+    'name': 'yolact_r50_ds2_x0',
+    # Dataset stuff
+    'dataset': zerowaste_ds1_3c_mnt_dataset,
+    'num_classes': len(zerowaste_ds1_3c_mnt_dataset.class_names) + 1,
+
+    # set backbone path! manually 'yolact/resnet50-19c8e357.pth'
+
+    # Training params
+    'max_iter': 20000,
+    'lr_steps': (.35 * 20000, .75 * 20000, .88 * 20000, .93 * 20000),
+    
 })
 
 

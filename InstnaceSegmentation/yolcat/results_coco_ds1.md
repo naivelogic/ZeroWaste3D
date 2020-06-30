@@ -2,6 +2,8 @@ Yolact (19), Yolact++ test results
 
 ## Dataset
 
+__Dataset 1__
+
  Distribution of instances among all 3 categories:
 |  category  | #instances   |  category  | #instances   |  category  | #instances   |
 |:----------:|:-------------|:----------:|:-------------|:----------:|:-------------|
@@ -11,21 +13,46 @@ Yolact (19), Yolact++ test results
 
 
 
+__Dataset 2__
 
 
-- lr = 0.02
-- warmsup step
 
-```yaml
-config:
-    - lr: 0.02
-    - warmup_steps: 1000
-    - steps: 
-    - dataset: zerowaste ds1
 
-model:
-    - batch_sizw:
 
+## Training Results
+
+
+
+__Run ID: yolact_d_ds2_1593488475_d3dc04be z04__
+Config: yolact_r50_ds2_x0_config
+Eval on Test: __NEED TO DO__
+Location: zerowastepublic/03-experiments/ds2/yolact_d/yolact_r50_ds2_x0
+
+
+
+__Run ID: yolact_ds2_1593486311_3fd22cc1 z05__
+Config: yolactpp_r50_ds2_x2_config
+Eval on Test: __NEED TO DO__
+Location: zerowastepublic/03-experiments/ds2/yolact_d/yolactpp_r50_ds2_x2_config
+
+
+
+
+__Run ID: yolact_ds2_1593381580_5212940c z05__
+Config: yolactpp_r50_ds2_x1_config
+Eval on Test: __NEED TO DO__
+Location: zerowastepublic/03-experiments/ds2/yolact_d/yolactpp_r50_ds2_x1
+
+
+       |  all  |  .50  |  .55  |  .60  |  .65  |  .70  |  .75  |  .80  |  .85  |  .90  |  .95  |
+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+   box | 22.04 | 48.18 | 43.01 | 36.80 | 34.68 | 26.97 | 16.13 |  9.61 |  4.47 |  0.61 |  0.00 |
+  mask |  9.55 | 19.47 | 16.84 | 13.19 | 12.43 | 11.27 |  9.49 |  7.53 |  4.22 |  0.91 |  0.17 |
+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+
+
+
+_[TODO: need to add yolact test id]_
 
 ```
 
@@ -45,3 +72,5 @@ yolact_test_1592836286_5a8bf57c
    box | 15.04 | 30.55 | 27.39 | 26.53 | 23.07 | 14.64 | 14.23 | 10.12 |  3.77 |  0.10 |  0.00 |
   mask |  3.05 | 12.63 |  7.60 |  5.72 |  2.90 |  1.48 |  0.18 |  0.03 |  0.00 |  0.00 |  0.00 |
 -------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
+
+

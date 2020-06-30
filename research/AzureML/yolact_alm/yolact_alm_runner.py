@@ -60,8 +60,9 @@ cfg.dataset.train_info = TRAIN_PATH
 cfg.dataset.valid_images = IMG_PATHS    
 cfg.dataset.valid_info = VAL_PATH  
 
-cfg.backbone.path = os.path.join(DATA_FOLDER,'03-experiments/01-pretrained_models/yolact_plus_resnet50_54_800000.pth') 
+#cfg.backbone.path = os.path.join(DATA_FOLDER,'03-experiments/01-pretrained_models/yolact_plus_resnet50_54_800000.pth') 
 
+cfg.backbone.path = os.path.join(DATA_FOLDER,'03-experiments/01-pretrained_models/resnet50-19c8e357.pth') 
 
 
 args.log_folder=LOGS_AND_MODEL_DIR

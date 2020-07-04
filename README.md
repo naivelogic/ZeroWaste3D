@@ -1,6 +1,7 @@
 # ZeroWaste3D
 Reducing Waste Contamination _(e.g., pepsi can in compost bin)_ with 3D Reconstruction using Photogrammetry. 
 
+![Image of Dataset2 Experiments Inferences June 2020](media/sample_images/ds2v1.png#50x100)
 
 ## Summary
 
@@ -27,16 +28,32 @@ Based on the work from the previous ZeroWaste 2018 and 2019 Hackathons __[TODO:]
 
 __TODO__
 
-## Results
+## Performance and Results
 
-## Instance Segmentation (Summary)
+Performance evaluation from model training across the different detection models utilized the Average Percision (AP). For specific details please refer to [InstanceSegmentation Model Results](InstnaceSegmentation/MaskResults.md).
 
-Below are a highlight in key results from Instance Segmentation training. For more details please refer to [InstanceSegmentation](InstnaceSegmentation/Data-Processing.md)
+### Instance Segmentation (Summary)
+
+Below are a highlight in key results from Instance Segmentation training. For more details please refer to 
+
+| Backbone           | bbox | mask | RunID                                 | Model | Log_Results |
+|--------------------|------|------|---------------------------------------|-------|-------------|
+| yfcos_ds2_r50_x08  | 78.0 | 63.3 | z03 - yolact_fcos_1593517754_6743927a | TBD   | TBD         |
+| yfcos_ds2_r101_x02 | 75.5 | 63.5 | z07 - yolact_fcos_1593518871_e226883d | TBD   | TBD         |
+|                    |      |      |                                       |       |             |
 
 
+## Quick Start
 
-| Model       | Backbone | Head      | Data | Date   | lr | AP   | AP50 | AP75 | APs  | APm  | APl  | 
-| ----------- | -------- | --------- | ---- | ------ | -- | ---- | ---- | ---- | ---- | ---- | ---- |
-| Yolact_fcos | R50-C4   | C5-512ROI | ds 1 | 061620 | 1X | 15.3 | 34.1 | 9.16 | nan  | 25.7 | 14.5 |
-| Yolact_fcos | R50-C4   | C5-128ROI | ds 2 | 062820 | 1X | 7.42 | 21.5 | 1.61 | nan  | 31.5 | 7.56 |
+### Requirements and Installation
 
+An `environment.yml` file is provided for installing the prerquists and dependencies for running various modules in this repository. 
+
+### Training
+
+Training the various netowrks can be ran locally/VM on a GPU within a Docker container or experiments deployed on AzureML. 
+
+- To install yolact related models refer to the `InstanceSegmentation/` folder
+- To install detectors models for pure object detection refer to the tensorflow and pytorch approaches in the `Detector/` folder
+- For running in docker (yolact and detectron2) refer to `reserach/AzureML/Docker` folder
+- For training on AzureML refer to the `research/AzureML/` folder

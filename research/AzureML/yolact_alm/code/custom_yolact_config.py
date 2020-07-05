@@ -28,6 +28,7 @@ COLORS = ((244,  67,  54),
 MEANS = (103.94, 116.78, 123.68)
 STD   = (57.38, 57.12, 58.40)
 
+
 COCO_CLASSES = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
                 'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
                 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog',
@@ -53,7 +54,6 @@ COCO_LABEL_MAP = { 1:  1,  2:  2,  3:  3,  4:  4,  5:  5,  6:  6,  7:  7,  8:  8
                   62: 57, 63: 58, 64: 59, 65: 60, 67: 61, 70: 62, 72: 63, 73: 64,
                   74: 65, 75: 66, 76: 67, 77: 68, 78: 69, 79: 70, 80: 71, 81: 72,
                   82: 73, 84: 74, 85: 75, 86: 76, 87: 77, 88: 78, 89: 79, 90: 80}
-
 
 
 # ----------------------- CONFIG CLASS ----------------------- #
@@ -120,7 +120,7 @@ dataset_base = Config({
     'has_gt': True,
 
     # A list of names for each of you classes.
-    'class_names': COCO_CLASSES,
+    'class_names': COCO_CLASSES, #COCO_CLASSES
 
     # COCO class ids aren't sequential, so this is a bandage fix. If your ids aren't sequential,
     # provide a map from category_id -> index in class_names + 1 (the +1 is there because it's 1-indexed).
@@ -137,42 +137,7 @@ coco2014_dataset = dataset_base.copy({
     'label_map': COCO_LABEL_MAP
 })
 
-coco2017_dataset = dataset_base.copy({
-    'name': 'COCO 2017',
-    
-    'train_info': './data/coco/annotations/instances_train2017.json',
-    'valid_info': './data/coco/annotations/instances_val2017.json',
-
-    'label_map': COCO_LABEL_MAP
-})
-
-coco2017_testdev_dataset = dataset_base.copy({
-    'name': 'COCO 2017 Test-Dev',
-
-    'valid_info': './data/coco/annotations/image_info_test-dev2017.json',
-    'has_gt': False,
-
-    'label_map': COCO_LABEL_MAP
-})
-
-PASCAL_CLASSES = ("aeroplane", "bicycle", "bird", "boat", "bottle",
-                  "bus", "car", "cat", "chair", "cow", "diningtable",
-                  "dog", "horse", "motorbike", "person", "pottedplant",
-                  "sheep", "sofa", "train", "tvmonitor")
-
-pascal_sbd_dataset = dataset_base.copy({
-    'name': 'Pascal SBD 2012',
-
-    'train_images': './data/sbd/img',
-    'valid_images': './data/sbd/img',
-    
-    'train_info': './data/sbd/pascal_sbd_train.json',
-    'valid_info': './data/sbd/pascal_sbd_val.json',
-
-    'class_names': PASCAL_CLASSES,
-})
-
-zerowaste_dataset = dataset_base.copy({
+zerowaste_dataset1 = dataset_base.copy({
   'name': 'ZeroWaste - Synthetics Dataset 1',
   'train_info': '/home/redne/mnt/project_zero/project_zero/ds1/experiments/dataset_config/train_coco_instances.json',
   'train_images': '/home/redne/mnt/project_zero/project_zero/ds1/parsed',
@@ -203,12 +168,12 @@ zerowaste_ds1_3c_mnt_dataset = dataset_base.copy({
 })
 
 
-zerowaste_ds2_mnt_dataset = dataset_base.copy({
-  'name': 'zerowaste_ds2_mnt_dataset',
-  'train_info': '/mnt/project_zero/ds1/experiments/dataset_config/ds2_3c_train_coco_instances.json',
-  'train_images': '/mnt/project_zero/ds1/parsed/',
-  'valid_info': '/mnt/project_zero/ds1/experiments/dataset_config/ds2_3c_val_coco_instances.json',
-  'valid_images': '/mnt/project_zero/ds1/parsed/',
+zerowaste_dataset2 = dataset_base.copy({
+  'name': 'zerowaste_dataset2',
+  'train_info': '/mnt/zerowastepublic/02-datasets/ds2/dataset_config/ds2_3c_train_coco_instances.json',
+  'train_images': '/mnt/zerowastepublic/02-datasets/ds2/images/',
+  'valid_info': '/mnt/zerowastepublic/02-datasets/ds2/dataset_config/ds2_3c_val_coco_instances.json',
+  'valid_images': '/mnt/zerowastepublic/02-datasets/ds2/images/',
   'class_names': ('utensils', 'coffeeCup', 'clearCup'),
   'label_map': { 1:  1,  2:  2,  3:  3 }
 })
@@ -453,7 +418,7 @@ fpn_base = Config({
 # ----------------------- CONFIG DEFAULTS ----------------------- #
 
 coco_base_config = Config({
-    'dataset': coco2014_dataset,
+    'dataset': coco2014_dataset,#coco2014_dataset,
     'num_classes': 81, # This should include the background class
 
     'max_iter': 400000,
@@ -695,8 +660,8 @@ yolact_base_config = coco_base_config.copy({
     'name': 'yolact_base',
 
     # Dataset stuff
-    'dataset': coco2017_dataset,
-    'num_classes': len(coco2017_dataset.class_names) + 1,
+    'dataset': coco2014_dataset,
+    'num_classes': len(coco2014_dataset.class_names) + 1,
 
     # Image Size
     'max_size': 550,
@@ -741,25 +706,6 @@ yolact_base_config = coco_base_config.copy({
     'use_semantic_segmentation_loss': True,
 })
 
-yolact_im400_config = yolact_base_config.copy({
-    'name': 'yolact_im400',
-
-    'max_size': 400,
-    'backbone': yolact_base_config.backbone.copy({
-        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 400)] for x in yolact_base_config.backbone.pred_scales],
-    }),
-})
-
-yolact_im700_config = yolact_base_config.copy({
-    'name': 'yolact_im700',
-
-    'masks_to_train': 300,
-    'max_size': 700,
-    'backbone': yolact_base_config.backbone.copy({
-        'pred_scales': [[int(x[0] / yolact_base_config.max_size * 700)] for x in yolact_base_config.backbone.pred_scales],
-    }),
-})
-
 yolact_darknet53_config = yolact_base_config.copy({
     'name': 'yolact_darknet53',
 
@@ -786,23 +732,6 @@ yolact_resnet50_config = yolact_base_config.copy({
         'preapply_sqrt': False,
         'use_square_anchors': True, # This is for backward compatability with a bug
     }),
-})
-
-
-yolact_resnet50_pascal_config = yolact_resnet50_config.copy({
-    'name': None, # Will default to yolact_resnet50_pascal
-    
-    # Dataset stuff
-    'dataset': pascal_sbd_dataset,
-    'num_classes': len(pascal_sbd_dataset.class_names) + 1,
-
-    'max_iter': 120000,
-    'lr_steps': (60000, 100000),
-    
-    'backbone': yolact_resnet50_config.backbone.copy({
-        'pred_scales': [[32], [64], [128], [256], [512]],
-        'use_square_anchors': False,
-    })
 })
 
 
@@ -856,28 +785,6 @@ yolact_plus_resnet50_config = yolact_plus_base_config.copy({
     }),
 })
 
-yolact_plus_resnet50_zw1_3c_exp2_config = yolact_plus_base_config.copy({
-    'name': 'yolact_plus_resnet50_zw1_3c_exp2',
-
-    'backbone': resnet50_dcnv2_backbone.copy({
-        'selected_layers': list(range(1, 4)),
-        
-        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
-        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
-        'use_pixel_scales': True,
-        'preapply_sqrt': False,
-        'use_square_anchors': False,
-    }),
-    'dataset': zerowaste_ds1_3label,
-    'num_classes': len(zerowaste_ds1_3label.class_names) + 1,
-    # Training params
-    'max_iter': 7000,
-    # 'lr': 1e-4,
-    # 'momentum': 0.9,
-    # 'decay': 5e-4,
-    # 'gamma': 0.1,
-    'lr_steps': (.35 * 7000, .75 * 7000, .88 * 7000, .93 * 7000),
-})
 
 
 
@@ -976,8 +883,8 @@ yolactpp_r50_ds2_x1_config = yolact_plus_base_config.copy({
         'preapply_sqrt': False,
         'use_square_anchors': False,
     }),
-    'dataset': zerowaste_ds2_mnt_dataset,
-    'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
+    'dataset': zerowaste_dataset2,
+    'num_classes': len(zerowaste_dataset2.class_names) + 1,
 
     # Training params
     'max_iter': 7000,
@@ -1001,8 +908,8 @@ yolactpp_r50_ds2_x2_config = yolact_plus_base_config.copy({
         'preapply_sqrt': False,
         'use_square_anchors': False,
     }),
-    'dataset': zerowaste_ds2_mnt_dataset,
-    'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
+    'dataset': zerowaste_dataset2,
+    'num_classes': len(zerowaste_dataset2.class_names) + 1,
 
     
     'preserve_aspect_ratio': True,      # experiment 2 update to preserve original image aspect ratio
@@ -1012,40 +919,38 @@ yolactpp_r50_ds2_x2_config = yolact_plus_base_config.copy({
     'lr_steps': (.35 * 20000, .75 * 20000, .88 * 20000, .93 * 20000),
 })
 
-yolactpp_r50_ds2_x0_config = yolact_plus_base_config.copy({
-    'name': 'yolactpp_r50_ds2_x0',
-
-    'backbone': resnet50_dcnv2_backbone.copy({
-        'selected_layers': list(range(1, 4)),
-        
-        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
-        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
-        'use_pixel_scales': True,
-        'preapply_sqrt': False,
-        'use_square_anchors': False,
-    }),
-    'dataset': zerowaste_ds2_mnt_dataset,
-    'num_classes': len(zerowaste_ds2_mnt_dataset.class_names) + 1,
-
-    
-    'preserve_aspect_ratio': True,      # experiment 2 update to preserve original image aspect ratio
-    'augment_expand': False,            # Disable augment_expand to avoid memory overflow
-    # Training params
-    'max_iter': 20000,
-    'lr_steps': (.35 * 20000, .75 * 20000, .88 * 20000, .93 * 20000),
-})
 
 yolact_r50_ds2_x0_config = yolact_resnet50_config.copy({
     'name': 'yolact_r50_ds2_x0',
     # Dataset stuff
-    'dataset': zerowaste_ds1_3c_mnt_dataset,
-    'num_classes': len(zerowaste_ds1_3c_mnt_dataset.class_names) + 1,
+    'dataset': zerowaste_dataset2,
+    'num_classes': len(zerowaste_dataset2.class_names) + 1,
 
     # set backbone path! manually 'yolact/resnet50-19c8e357.pth'
 
     # Training params
     'max_iter': 20000,
     'lr_steps': (.35 * 20000, .75 * 20000, .88 * 20000, .93 * 20000),
+    
+})
+
+yolact_r50_ds2_x01_config = yolact_resnet50_config.copy({
+    'name': 'yolact_r50_ds2_x01',
+    # Dataset stuff
+    'dataset': zerowaste_dataset2,
+    'num_classes': len(zerowaste_dataset2.class_names) + 1,
+    
+    'lr_warmup_init': 0.013333, # (default: 1e-4) Initial learning rate to linearly warmup from (if until > 0)
+
+    
+    'lr_warmup_until': 2000, # (default: 500) If > 0 then increase the lr linearly from warmup_init to lr each iter for until iters
+
+    # set backbone path! manually 'yolact/resnet50-19c8e357.pth'
+
+    # Training params
+    'max_iter': 25000,
+    'lr':0.04,
+    'lr_steps': (.35 * 25000, .75 * 25000, .88 * 25000, .93 * 25000),
     
 })
 

@@ -27,145 +27,54 @@ import eval as eval_script
 def str2bool(v):
     return v.lower() in ("yes", "true", "t", "1")
 
-
-
-
-def parse_args(in_args=None):
-    parser = argparse.ArgumentParser(
-    description='Yolact Training Script')
-    parser.add_argument('--batch_size', default=8, type=int,
-                        help='Batch size for training')
-    parser.add_argument('--resume', default=None, type=str,
-                        help='Checkpoint state_dict file to resume training from. If this is "interrupt"'\
-                            ', the model will resume training from the interrupt file.')
-    parser.add_argument('--start_iter', default=-1, type=int,
-                        help='Resume training at this iter. If this is -1, the iteration will be'\
-                            'determined from the file name.')
-    parser.add_argument('--num_workers', default=4, type=int,
-                        help='Number of workers used in dataloading')
-    parser.add_argument('--cuda', default=True, type=str2bool,
-                        help='Use CUDA to train model')
-    parser.add_argument('--lr', '--learning_rate', default=None, type=float,
-                        help='Initial learning rate. Leave as None to read this from the config.')
-    parser.add_argument('--momentum', default=None, type=float,
-                        help='Momentum for SGD. Leave as None to read this from the config.')
-    parser.add_argument('--decay', '--weight_decay', default=None, type=float,
-                        help='Weight decay for SGD. Leave as None to read this from the config.')
-    parser.add_argument('--gamma', default=None, type=float,
-                        help='For each lr step, what to multiply the lr by. Leave as None to read this from the config.')
-    parser.add_argument('--save_folder', default='weights/',
-                        help='Directory for saving checkpoint models.')
-    parser.add_argument('--log_folder', default='logs/',
-                        help='Directory for saving logs.')
-    parser.add_argument('--config', default=None,
-                        help='The config object to use.')
-    parser.add_argument('--save_interval', default=10000, type=int,
-                        help='The number of iterations between saving the model.')
-    parser.add_argument('--validation_size', default=5000, type=int,
-                        help='The number of images to use for validation.')
-    parser.add_argument('--validation_epoch', default=2, type=int,
-                        help='Output validation information every n iterations. If -1, do no validation.')
-    parser.add_argument('--keep_latest', dest='keep_latest', action='store_true',
-                        help='Only keep the latest checkpoint instead of each one.')
-    parser.add_argument('--keep_latest_interval', default=100000, type=int,
-                        help='When --keep_latest is on, don\'t delete the latest file at these intervals. This should be a multiple of save_interval or 0.')
-    parser.add_argument('--dataset', default=None, type=str,
-                        help='If specified, override the dataset specified in the config with this one (example: coco2017_dataset).')
-    parser.add_argument('--no_log', dest='log', action='store_false',
-                        help='Don\'t log per iteration information into log_folder.')
-    parser.add_argument('--log_gpu', dest='log_gpu', action='store_true',
-                        help='Include GPU information in the logs. Nvidia-smi tends to be slow, so set this with caution.')
-    parser.add_argument('--no_interrupt', dest='interrupt', action='store_false',
-                        help='Don\'t save an interrupt when KeyboardInterrupt is caught.')
-    parser.add_argument('--batch_alloc', default=None, type=str,
-                        help='If using multiple GPUS, you can set this to be a comma separated list detailing which GPUs should get what local batch size (It should add up to your total batch size).')
-    parser.add_argument('--no_autoscale', dest='autoscale', action='store_false',
-                        help='YOLACT will automatically scale the lr and the number of iterations depending on the batch size. Set this if you want to disable that.')
-
-    parser.set_defaults(keep_latest=False, log=True, log_gpu=False, interrupt=True, autoscale=True)
-    return parser.parse_args(in_args)
-
-
-
-#args = parser.parse_args()
-
-def set_default_args():
-    args.autoscale=True
-    args.batch_alloc=None
-    args.batch_size=8
-    args.config= None
-    args.cuda=True
-    args.dataset=None
-    args.decay=None
-    args.gamma=None
-    args.interrupt=True
-    args.keep_latest=False
-    args.keep_latest_interval=100000
-    args.log=True
-    args.log_folder='logs/'
-    args.log_gpu=False
-    args.lr=None
-    args.momentum=None
-    args.num_workers=4
-    args.resume=None
-    args.save_folder='weights/'
-    args.save_interval=10000
-    args.start_iter=-1
-    args.validation_epoch=2
-    args.validation_size=5000
-    return args
-#args = set_default_args()
-
 from argparse import Namespace
-args =Namespace(autoscale=True, batch_alloc=None, batch_size=8, config=None, config_file='yolact_plus_resnet50_zw1_3c_mnt_x1_config', cuda=True, data_folder='/mnt/project_zero/ds1/parsed/', dataset=None, decay=None, gamma=None, img_folder='/mnt/project_zero/ds1/parsed/', interrupt=True, keep_latest=False, keep_latest_interval=100000, log=True, log_folder='logs/', log_gpu=False, lr=None, masks_folder='/mnt/project_zero/ds1/experiments/dataset_config/', momentum=None, num_workers=4, output_folder='/mnt/project_zero/ds1/experiments/output/x1/yolact_test/yolact_plus_resnet50_zw1_x1', resume=None, save_folder='weights/', save_interval=10000, start_iter=-1, validation_epoch=2, validation_size=5000)
 
-
-if args.config is not None:
-    set_cfg(args.config)
-
-if args.dataset is not None:
-    set_dataset(args.dataset)
-
-if args.autoscale and args.batch_size != 8:
-    factor = args.batch_size / 8
-    if __name__ == '__main__':
-        print('Scaling parameters by %.2f to account for a batch size of %d.' % (factor, args.batch_size))
-
-    cfg.lr *= factor
-    cfg.max_iter //= factor
-    cfg.lr_steps = [x // factor for x in cfg.lr_steps]
+args =Namespace(autoscale=True, batch_alloc=None, batch_size=8, config=None, config_file=None, cuda=True, data_folder=None, dataset=None, decay=None, gamma=None, img_folder=None, interrupt=True, keep_latest=False, keep_latest_interval=100000, log=True, log_folder='logs/', log_gpu=False, lr=None, masks_folder=None, momentum=None, num_workers=4, output_folder=None, resume=None, save_folder='weights/', save_interval=10000, start_iter=-1, validation_epoch=2, validation_size=5000)
 
 # Update training parameters from the config if necessary
 def replace(name):
     if getattr(args, name) == None: setattr(args, name, getattr(cfg, name))
-replace('lr')
-replace('decay')
-replace('gamma')
-replace('momentum')
 
-# This is managed by set_lr
-cur_lr = args.lr
+def set_training_config_params():
+    if args.config is not None:
+        set_cfg(args.config)
+    if args.dataset is not None:
+        set_dataset(args.dataset)
+    if args.autoscale and args.batch_size != 8:
+        factor = args.batch_size / 8
+        if __name__ == '__main__':
+            print('Scaling parameters by %.2f to account for a batch size of %d.' % (factor, args.batch_size))
+        cfg.lr *= factor
+        cfg.max_iter //= factor
+        cfg.lr_steps = [x // factor for x in cfg.lr_steps]
+    
+    # Update training parameters from the config if necessary
+    replace('lr')
+    replace('decay')
+    replace('gamma')
+    replace('momentum')
+    # This is managed by set_lr
+    cur_lr = args.lr
+    print(f'current lurrning rate: {cur_lr} from args lr: {args.lr}')
+    if torch.cuda.device_count() == 0:
+        print('No GPUs detected. Exiting...')
+        exit(-1)
+    if args.batch_size // torch.cuda.device_count() < 6:
+        if __name__ == '__main__':
+            print('Per-GPU batch size is less than the recommended limit for batch norm. Disabling batch norm.')
+        cfg.freeze_bn = True
+    if torch.cuda.is_available():
+        if args.cuda:
+            torch.set_default_tensor_type('torch.cuda.FloatTensor')
+        if not args.cuda:
+            print("WARNING: It looks like you have a CUDA device, but aren't " +
+                "using CUDA.\nRun with --cuda for optimal training speed.")
+            torch.set_default_tensor_type('torch.FloatTensor')
+    else:
+        torch.set_default_tensor_type('torch.FloatTensor')
 
-if torch.cuda.device_count() == 0:
-    print('No GPUs detected. Exiting...')
-    exit(-1)
-
-if args.batch_size // torch.cuda.device_count() < 6:
-    if __name__ == '__main__':
-        print('Per-GPU batch size is less than the recommended limit for batch norm. Disabling batch norm.')
-    cfg.freeze_bn = True
 
 loss_types = ['B', 'C', 'M', 'P', 'D', 'E', 'S', 'I']
-
-if torch.cuda.is_available():
-    if args.cuda:
-        torch.set_default_tensor_type('torch.cuda.FloatTensor')
-    if not args.cuda:
-        print("WARNING: It looks like you have a CUDA device, but aren't " +
-              "using CUDA.\nRun with --cuda for optimal training speed.")
-        torch.set_default_tensor_type('torch.FloatTensor')
-else:
-    torch.set_default_tensor_type('torch.FloatTensor')
 
 class NetLoss(nn.Module):
     """

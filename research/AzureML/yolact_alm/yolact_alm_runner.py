@@ -1,4 +1,17 @@
 #custom_docker_image='yolact:1'
+"""
+calc epoc size and validation interval
+train dataset size = 400 (ds2)
+batch_size = 8 (current default)
+validation_interval = 2 (default)
+max_iter = 20,000
+epoch_size (50) = 400 / 8
+num_epocs (400) = (20k) max_iter / (50) epoc_size
+
+
+"""
+
+
 import sys, os, shutil
 
 import argparse
@@ -33,6 +46,7 @@ def get_parser():
 args = get_parser().parse_args()
 DATA_FOLDER = args.data_folder
 LOGS_AND_MODEL_DIR = args.output_folder
+TRAINING_CONFIG = args.config_file 
 
 # Register Custom Dataset
 MASKS_PATHS = args.masks_folder
@@ -51,9 +65,19 @@ print(f'currenting ALM aguments before train defauls {args.__dict__}')
 sys.path.append("/yolact/") # go to parent dir
 from train import *
 
+print(f'default training arguments before our custom training configs applied:')
+print(args.__dict__)
+print(f">> customizing for our training config: {TRAINING_CONFIG}")
 
-args.config=args.config_file 
+args.config= TRAINING_CONFIG
 set_cfg(args.config)
+
+args.validation_epoch = 50
+
+set_training_config_params()
+
+# This is managed by set_lr
+cur_lr = args.lr
 
 cfg.dataset.train_images = IMG_PATHS
 cfg.dataset.train_info = TRAIN_PATH 
@@ -63,16 +87,20 @@ cfg.dataset.valid_info = VAL_PATH
 #cfg.backbone.path = os.path.join(DATA_FOLDER,'03-experiments/01-pretrained_models/yolact_plus_resnet50_54_800000.pth') 
 
 cfg.backbone.path = os.path.join(DATA_FOLDER,'03-experiments/01-pretrained_models/resnet50-19c8e357.pth') 
-
-
 args.log_folder=LOGS_AND_MODEL_DIR
 args.save_folder=LOGS_AND_MODEL_DIR
 
 
-print(args.__dict__)
+#print(args.__dict__)
 
 print(f'current CFGs')
-print(f'dataset name: {cfg.dataset.name}\ndatset training images: {cfg.dataset.train_images}')
+print(f'dataset name: {cfg.dataset.name}\ndatset info: {cfg.dataset.__dict__}')
 print(f'databset backbonme: {cfg.backbone.__dict__}')
+print(f'FPN confg: {cfg.fpn.__dict__}')
+print(f'Config all dump')
+print("")
+cfg.print()
+print("")
+print(f">>>>>> STARTING TRIANING for {TRAINING_CONFIG} <<<<<<<<")
 train()
     

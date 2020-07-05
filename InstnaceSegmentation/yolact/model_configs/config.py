@@ -832,6 +832,30 @@ yolact_plus_resnet50_config = yolact_plus_base_config.copy({
     }),
 })
 
+yolact_plus_resnet50_zw1_3c_exp2_config = yolact_plus_base_config.copy({
+    'name': 'yolact_plus_resnet50_zw1_3c_exp2',
+
+    'backbone': resnet50_dcnv2_backbone.copy({
+        'selected_layers': list(range(1, 4)),
+        
+        'pred_aspect_ratios': [ [[1, 1/2, 2]] ]*5,
+        'pred_scales': [[i * 2 ** (j / 3.0) for j in range(3)] for i in [24, 48, 96, 192, 384]],
+        'use_pixel_scales': True,
+        'preapply_sqrt': False,
+        'use_square_anchors': False,
+    }),
+    'dataset': zerowaste_ds1_3label,
+    'num_classes': len(zerowaste_ds1_3label.class_names) + 1,
+    # Training params
+    'max_iter': 7000,
+    # 'lr': 1e-4,
+    # 'momentum': 0.9,
+    # 'decay': 5e-4,
+    # 'gamma': 0.1,
+    'lr_steps': (.35 * 7000, .75 * 7000, .88 * 7000, .93 * 7000),
+})
+
+
 
 # Default config
 cfg = yolact_base_config.copy()

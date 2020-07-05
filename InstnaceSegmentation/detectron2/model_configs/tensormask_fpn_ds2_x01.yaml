@@ -1,0 +1,14 @@
+# https://github.com/facebookresearch/detectron2/blob/master/projects/TensorMask/configs/tensormask_R_50_FPN_6x.yaml
+_BASE_: "./base_configs/Base-TensorMask.yaml"
+SOLVER:
+  LR_SCHEDULER_NAME: "WarmupCosineLR"   # https://github.com/shellhue/detectron2/blob/master/projects/Backbone/configs/shufflenetv1_4x.yaml
+  WARMUP_METHOD: "constant"                 # in x09 change to "linear"
+  WARMUP_FACTOR: 0.013333                     # DEFAULT warmup factore is 1.0 / 3
+  WARMUP_ITERS: 2000
+  MAX_ITER: 20000                           # Update from x08
+  BASE_LR: 0.04                          # Update from x08 
+  STEPS: (7000, 15000, 17600, 18600)        # Update from x08 
+  CHECKPOINT_PERIOD: 5000
+  #BIAS_LR_FACTOR: 2.0     # try next exp https://github.com/leftthomas/EMANet/blob/bb6aba98d8d97f0997d938ee95ba12860c48ef31/configs/base.yaml
+INPUT:
+  MIN_SIZE_TRAIN: (800,)

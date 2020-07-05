@@ -940,16 +940,16 @@ yolact_r50_ds2_x01_config = yolact_resnet50_config.copy({
     'dataset': zerowaste_dataset2,
     'num_classes': len(zerowaste_dataset2.class_names) + 1,
     
-    'lr_warmup_init': 0.013333, # (default: 1e-4) Initial learning rate to linearly warmup from (if until > 0)
+    #'lr_warmup_init': 0.013, # (default: 1e-4) Initial learning rate to linearly warmup from (if until > 0)
 
     
-    'lr_warmup_until': 2000, # (default: 500) If > 0 then increase the lr linearly from warmup_init to lr each iter for until iters
+    #'lr_warmup_until': 2000, # (default: 500) If > 0 then increase the lr linearly from warmup_init to lr each iter for until iters
 
     # set backbone path! manually 'yolact/resnet50-19c8e357.pth'
 
     # Training params
     'max_iter': 25000,
-    'lr':0.04,
+    'lr':4e-2,
     'lr_steps': (.35 * 25000, .75 * 25000, .88 * 25000, .93 * 25000),
     
 })

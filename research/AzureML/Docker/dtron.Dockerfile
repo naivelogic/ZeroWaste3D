@@ -60,9 +60,6 @@ RUN conda install pytorch torchvision cudatoolkit=10.1 -c pytorch
 # Install pycocotools
 RUN pip install -U 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI'
 
-
-#WORKDIR /ZeroWaste
-
 # Install detectron2
 RUN git clone https://github.com/facebookresearch/detectron2.git
 # set FORCE_CUDA because during `docker build` cuda is not accessible
@@ -74,10 +71,7 @@ ENV TORCH_CUDA_ARCH_LIST="${TORCH_CUDA_ARCH_LIST}"
 ENV FORCE_CUDA="1"
 RUN python -m pip install -e detectron2
 
-# Install Yolact
-RUN git clone https://github.com/dbolya/yolact.git
-
-COPY setup.py /yolact/external/DCNv2/
-RUN cd /yolact/external/DCNv2 && \
+#compile the TensorMask-specific op (swap_align2nat)
+RUN cd /detectron2/projects/TensorMask/ && \
     python setup.py build develop && \
     rm -Rf /root/.cache/pip

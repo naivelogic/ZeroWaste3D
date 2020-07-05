@@ -1,0 +1,16 @@
+VERSION: 2
+MODEL:
+    MASK_ON: True
+DATASETS:
+    TRAIN: ("custom_dataset_train",)
+    TEST: ("custom_dataset_val",)
+DATALOADER:
+    NUM_WORKERS: 2
+    #FILTER_EMPTY_ANNOTATIONS: False
+SOLVER:
+  IMS_PER_BATCH: 2
+  BASE_LR: 0.00025
+  MAX_ITER: 1000
+INPUT:
+  MIN_SIZE_TRAIN: (640, 672, 704, 736, 768, 800)
+OUTPUT_DIR: "./outputs"

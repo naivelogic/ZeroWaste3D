@@ -1,0 +1,22 @@
+# https://github.com/facebookresearch/detectron2/blob/master/projects/TensorMask/configs/tensormask_R_50_FPN_6x.yaml
+_BASE_: "./base_configs/Base-TensorMask.yaml"
+SOLVER:
+  #STEPS: (480000, 520000)
+  #STEPS: (50,)
+  #MAX_ITER: 100
+  #WARMUP_ITERS: 50
+  #CHECKPOINT_PERIOD: 100
+SOLVER:
+  WARMUP_METHOD: "constant"                 # in x09 change to "linear"
+  WARMUP_FACTOR: 0.3333                     # DEFAULT warmup factore is 1.0 / 3
+  WARMUP_ITERS: 500
+  MAX_ITER: 20000                           # Update from x08
+  IMS_PER_BATCH: 2                          # DEFAULT 1 GPU
+  BASE_LR: 0.00025                          # Update from x08 
+  STEPS: (7000, 15000, 17600, 18600)        # Update from x08 
+INPUT:
+  #MIN_SIZE_TRAIN_SAMPLING: "range"
+  #MIN_SIZE_TRAIN: (640, 800)
+  MIN_SIZE_TRAIN: (800,)
+  #MIN_SIZE_TRAIN: (1024,)
+OUTPUT_DIR: "./outputs/test1"

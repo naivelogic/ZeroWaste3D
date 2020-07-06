@@ -1,9 +1,6 @@
 # https://github.com/facebookresearch/detectron2/blob/master/projects/TensorMask/configs/tensormask_R_50_FPN_6x.yaml
 _BASE_: "./base_configs/Base-TensorMask.yaml"
-SOLVER:
-  STEPS: (60000, 80000) #(480000, 520000)
-  MAX_ITER: 90000 #540000
-  CHECKPOINT_PERIOD: 10000
-INPUT:
-  MIN_SIZE_TRAIN_SAMPLING: "range"
-  MIN_SIZE_TRAIN: (640, 800)
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50

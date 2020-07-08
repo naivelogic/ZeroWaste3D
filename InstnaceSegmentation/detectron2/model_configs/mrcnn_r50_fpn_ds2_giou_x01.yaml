@@ -1,0 +1,14 @@
+#https://github.com/facebookresearch/detectron2/blob/master/configs/COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_1x_giou.yaml
+_BASE_: "./base_configs/Base-RCNN-FPN.yaml"
+MODEL:
+  RPN:
+    BBOX_REG_LOSS_TYPE: "giou"
+    BBOX_REG_LOSS_WEIGHT: 2.0
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: "giou"
+    BBOX_REG_LOSS_WEIGHT: 10.0
+SOLVER:
+  #IMS_PER_BATCH: 16
+  BASE_LR: 0.02
+  STEPS: (10500, 22500, 26400, 27900)
+  MAX_ITER: 30000

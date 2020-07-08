@@ -86,7 +86,7 @@ if __name__ == "__main__":
     #cfg.MODEL.ROI_HEADS.NUM_CLASSES = 3  # 3 classes (utensiles, coffeeCup, clearCup)
     #cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128  
 
-    #cfg.OUTPUT_DIR= LOGS_AND_MODEL_DIR
+    cfg.OUTPUT_DIR= LOGS_AND_MODEL_DIR
 
     #os.makedirs(cfg.OUTPUT_DIR, exist_ok=True)
     os.makedirs(LOGS_AND_MODEL_DIR, exist_ok=True)

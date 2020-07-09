@@ -1,0 +1,7 @@
+opencv-python 
+pillow 
+pycocotools 
+matplotlib 
+tqdm 
+scikit-image 
+keras==2.2.0

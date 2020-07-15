@@ -1,14 +1,39 @@
+# 3D Object Detection with 6D Pose Estimation
+
+>TODO: Insert 3D object detection screenshot from latest Z3D Pose Experiments 
+
+## Overview
+
+1. Object Detection - utilizing `Mask-RCNN` ??`mesh-rcnn`?? to detect object bounding box 
+2. Depth estimation - utilzing pretrained depth estimation (monocular) along with the `Mask-RCNN` provided bounding boxes to find the 3D locaiton of the object.
 
 
-### Building the Container
+## Getting Started
+
+### Dataset setup
+
+
+Mount storage file share of the Z3D dataset. 
+
+> TODO provide instructions on mounting container
+
+First you will need to download the weights DNN utilized for training: `sh scripts/download_depth_weights.sh`
+
+
+
+### Setting up environment
+
+#### Building the Container
 
 login to container registry and build the docker file
 
 ```  
 docker build . -f 6d.Dockerfile -t computervisi6b3936b2.azurecr.io/6d:1
+
+docker run --gpus=all --shm-size 8G -p 8888:8888 -v /mnt/zerowastepublic/:/zerowastepublic -v /home/redne/ZeroWaste3D/research/6D_Pose/:/6D_Pose/ -it computervisi6b3936b2.azurecr.io/nocs:1 bash
 ```
 
-
+----
 ### References
 
 * https://github.com/j96w/6-PACK

@@ -2,11 +2,16 @@
 
 >TODO: Insert 3D object detection screenshot from latest Z3D Pose Experiments 
 
-## Overview
+## Overview 
+__(still in research -  Summer 2020)__
+
+This section of the Z3D repo introduces methods utilizing 3D key points generation using 6D achors to estipate objectes pose in an unsupervised learning approach without manually annotating keypoints. The overall goal is to established a set of models that consumes RGB-D images and predicts cooresponding 6D pose for each individual object in the image, in real-time. 
 
 1. Object Detection - utilizing `Mask-RCNN` ??`mesh-rcnn`?? to detect object bounding box 
 2. Depth estimation - utilzing pretrained depth estimation (monocular) along with the `Mask-RCNN` provided bounding boxes to find the 3D locaiton of the object.
 
+
+__note__ as the Z3D 6D Pose project builds out, we will be leveraging the [AzureKinect](https://azure.microsoft.com/en-us/services/kinect-dk/) in subsequent dataset generation, inference and testing applications. 
 
 ## Getting Started
 

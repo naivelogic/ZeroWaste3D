@@ -2,6 +2,14 @@
 
 >TODO: Insert 3D object detection screenshot from latest Z3D Pose Experiments 
 
+![](sample/vis_gt_pose_coffeecup_yolo2_091420.jpg)
+
+
+
+
+----
+
+
 ## Overview 
 __(still in research -  Summer 2020)__
 
@@ -12,6 +20,14 @@ This section of the Z3D repo introduces methods utilizing 3D key points generati
 
 
 __note__ as the Z3D 6D Pose project builds out, we will be leveraging the [AzureKinect](https://azure.microsoft.com/en-us/services/kinect-dk/) in subsequent dataset generation, inference and testing applications. 
+
+### 6D Object Pose Estimation 
+
+The task at hand is to estimate the 6D object pose of rigid objects. The 6D object pose is constructed of a 3x3 rotational matrix (`R`) and a 3x1 translation vector (`t`). `[R,t]` is the representiaton of the 6D transformation otherwise referred to as the transformation of the object coordiante to camera coordinate. 
+
+Research topics for 6D object pose estimation
+* instance level - e.g., template based matching with known 3D object model
+* category level - e.g., exact 3D object unknown but identifed object geometric properties are related/similar to related 3D object model
 
 ## Getting Started
 

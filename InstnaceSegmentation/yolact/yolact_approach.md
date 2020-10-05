@@ -1,6 +1,6 @@
 # Yolact, Yolact++ and Yolact-FCOS
 
-
+![](../../media/yolact_network.png)
 
 ## Training
 

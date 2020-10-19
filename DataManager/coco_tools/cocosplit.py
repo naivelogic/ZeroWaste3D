@@ -56,4 +56,10 @@ if __name__ == "__main__":
     #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/coco_instances.json train_coco_instances.json test_coco_instances.json
     #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/train_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/test_coco_instances.json
     #python cocosplit.py --having-annotations -s 0.9 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/test_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/test_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/val_coco_instances.json
+    # zerowaste ds1 - 10/19
+    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/train_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json
+    #python cocosplit.py --having-annotations -s 0.9 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/val_coco_instances.json
+    # zerowaste ds1 - 10/19
+    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/train_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json
+    #python cocosplit.py --having-annotations -s 0.9 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/val_coco_instances.json
     main(args)

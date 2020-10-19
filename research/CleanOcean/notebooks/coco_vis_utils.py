@@ -16,6 +16,7 @@ import urllib.request
 import shutil
 import warnings
 from distutils.version import LooseVersion
+from PIL import Image, ImageDraw
 
 class Dataset(object):
     """The base class for dataset classes.
@@ -249,3 +250,4 @@ class CocoLikeDataset(Dataset):
         class_ids = np.array(class_ids, dtype=np.int32)
         
         return mask, class_ids
+

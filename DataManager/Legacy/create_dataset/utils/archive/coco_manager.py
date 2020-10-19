@@ -49,7 +49,7 @@ class MaskManager:
         self.masks = dict()
         self.super_categories = dict()
         self.custom_classes = dict()
-        self.resave_masks = False
+        self.resave_masks = True
         self.resave_images_flag = False
         self.test_train_val_flag = False
         self.custom_classes_flag = False        # used to add a experimental custom class (e.g., instead of fork/spoon all are utensels)
@@ -91,8 +91,8 @@ class MaskManager:
             'clearCup':['clearCup']
         }
 
-        
-    def set_resave_mask(self, new_mask_path="/home/redne/mnt/project_zero/project_zero/ds1/masks/"):
+        #"/home/redne/mnt/project_zero/project_zero/ds1/masks/"
+    def set_resave_mask(self, new_mask_path='/mnt/daredevildiag/6PACK/z3d/ds1/masks/'):
         self.resave_masks = True
         self.resave_mask_path = new_mask_path
 
@@ -164,7 +164,7 @@ class MaskManager:
             #sanity check
             if "InstanceUniqueIds" not in inJson['Events'][0]['Event']['Data']: 
                 raise RuntimeError('BAD JSON; This is not an instance GT folder') 
-            # Makes an instancename --> metadata array
+            
             instanceMetadataDictionaryByName = {}
             for dataArray in inJson['Events'][0]['Event']['Data']["Arr"]:
                 instanceMetadata = {}
@@ -249,8 +249,9 @@ class MaskManager:
         return train_, val_
 
     def start(self,phase, mask_paths):
-        root = '/home/redne/mnt/project_zero/project_zero/ds1/parsed/'
-        raw = '/home/redne/mnt/project_zero/project_zero/ds1/raw/'
+        #root = '/home/redne/mnt/project_zero/project_zero/ds1/parsed/'
+        raw = '/mnt/daredevildiag/6PACK/z3d/ds1/raw'
+        #raw = '/home/redne/mnt/project_zero/project_zero/ds1/raw/'
         mask_instance_event_file = '/instance/events.0.json'
 
         for instance_ in mask_paths:

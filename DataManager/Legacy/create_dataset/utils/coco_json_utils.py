@@ -216,6 +216,7 @@ class CocoJsonCreator():
         """
         # Validate the mask definition file exists
         mask_definition_file = Path(args.mask_definition)
+        print(mask_definition_file)
         if not (mask_definition_file.exists and mask_definition_file.is_file()):
             raise FileNotFoundError(f'mask definition file was not found: {mask_definition_file}')
 
@@ -227,6 +228,7 @@ class CocoJsonCreator():
 
         # Validate the dataset info file exists
         dataset_info_file = Path(args.dataset_info)
+        print(dataset_info_file)
         if not (dataset_info_file.exists() and dataset_info_file.is_file()):
             raise FileNotFoundError(f'dataset info file was not found: {dataset_info_file}')
 

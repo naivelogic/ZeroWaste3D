@@ -1,7 +1,7 @@
 # ZeroWaste3D on Clean Ocean
 
 Objective: Train accurate detector for detecting waste in ocean/waterways to aid in reduction of polution and waste contaimination. 
-
+![](../../media/waterwaste_ds0_102020.gif)
 
 ### Summary
 
@@ -20,7 +20,7 @@ __WORK IN PROGRESS - Oct 2020__
 
 | Train Dataset Images + Class info  | mAP  | mAPrecision IoU=0.5 | mARecall 100 |
 |------------------------------------|------|---------------------|--------------|
-| DS.X Synthetics (#XXK) - (#classes) | 0.XX | 0.XX                | 0.XX         |
+| DS.0 Synthetics Only (#30K) - (3 class) | 0.39 | 0.47                | 0.XX         |
 | DS.X Synthetics (#XXK) - (#classes) | 0.XX | 0.XX                | 0.XX         |
 | DS.X Synthetics (#XXK) + Real (XX)  | 0.XX | 0.XX                | 0.XX         |
 | DS.X Real Images Only (#XXX)        | 0.XX | 0.XX                | 0.XX         |

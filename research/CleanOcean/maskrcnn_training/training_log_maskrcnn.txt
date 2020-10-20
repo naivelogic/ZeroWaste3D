@@ -1,0 +1,12 @@
+Epoch 5/8
+196/500 [==========>...................] - ETA: 53:16 - loss: 0.5925 - rpn_class_loss: 0.0041 - rpn_bbox_loss: 0.1284 - mrcnn_class_loss: 0.3019 - mrcnn_bbox_loss: 0.0603 - mrcnn_mask_loss: 0.0978
+500/500 [==============================] - 5220s 10s/step - loss: 0.5635 - rpn_class_loss: 0.0040 - rpn_bbox_loss: 0.1155 - mrcnn_class_loss: 0.2951 - mrcnn_bbox_loss: 0.0538 - mrcnn_mask_loss: 0.0950 - val_loss: 0.6247 - val_rpn_class_loss: 0.0022 - val_rpn_bbox_loss: 0.1165 - val_mrcnn_class_loss: 0.3636 - val_mrcnn_bbox_loss: 0.0533 - val_mrcnn_mask_loss: 0.0892
+Epoch 6/8
+500/500 [==============================] - 5214s 10s/step - loss: 0.5463 - rpn_class_loss: 0.0044 - rpn_bbox_loss: 0.1115 - mrcnn_class_loss: 0.2882 - mrcnn_bbox_loss: 0.0471 - mrcnn_mask_loss: 0.0950 - val_loss: 0.7420 - val_rpn_class_loss: 0.0038 - val_rpn_bbox_loss: 0.2066 - val_mrcnn_class_loss: 0.3675 - val_mrcnn_bbox_loss: 0.0550 - val_mrcnn_mask_loss: 0.1091
+Epoch 7/8
+500/500 [==============================] - 5208s 10s/step - loss: 0.4965 - rpn_class_loss: 0.0040 - rpn_bbox_loss: 0.0854 - mrcnn_class_loss: 0.2746 - mrcnn_bbox_loss: 0.0440 - mrcnn_mask_loss: 0.0884 - val_loss: 0.8438 - val_rpn_class_loss: 0.0019 - val_rpn_bbox_loss: 0.3289 - val_mrcnn_class_loss: 0.2846 - val_mrcnn_bbox_loss: 0.0364 - val_mrcnn_mask_loss: 0.1920
+Epoch 8/8
+500/500 [==============================] - 5201s 10s/step - loss: 0.4828 - rpn_class_loss: 0.0031 - rpn_bbox_loss: 0.0650 - mrcnn_class_loss: 0.2833 - mrcnn_bbox_loss: 0.0430 - mrcnn_mask_loss: 0.0884 - val_loss: 0.6862 - val_rpn_class_loss: 0.0043 - val_rpn_bbox_loss: 0.1237 - val_mrcnn_class_loss: 0.3811 - val_mrcnn_bbox_loss: 0.0773 - val_mrcnn_mask_loss: 0.0999
+Training took 348.87 minutes
+>>> TRAINING: >> (2/2) FINE TUNE ALL LAYERS >> COMPLETE!!!
+... begin inferening

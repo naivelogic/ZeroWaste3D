@@ -1,0 +1,12 @@
+item {
+  id:1
+  name:'D_lid'
+}
+item {
+  id:2
+  name:'H_beveragebottle'
+}
+item {
+  id:3
+  name:'S_cup'
+}

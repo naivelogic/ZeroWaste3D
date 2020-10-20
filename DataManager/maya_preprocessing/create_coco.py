@@ -7,26 +7,12 @@ import maya_parseutils as sx
 
 from submask_utils import create_sub_masks, create_sub_mask_annotation
 
-cat_id = {
-    'H_beveragebottle': 1,
-    'D_lid': 2,
-    'S_cup': 3
-}
+import sys
+sys.path.append("../") 
 
-CATEGORIES = ["H_beveragebottle", "D_lid", "S_cup"]
+#from dataset_configs.zerowaste_ds_config import *
+from dataset_configs.waterwaste_ds_config import *
 
-color_cat = [
-    (0, 0, 255),          #//Blue
-    (255, 0, 0),      #//Red
-    (0, 255, 0),      #//Green
-    (255, 0, 255),    #//Magenta
-    (255, 128, 128),  #//Pink
-    (128, 128, 128),  #//Gray
-    (128, 0, 0),      #//Brown
-    (255, 128, 0),    #//Orange
-    (0, 255, 255)
-]
-#(255, 255, 0),    #//Yellow
 
 # These ids will be automatically increased as we go
 annotation_id = 1
@@ -35,42 +21,9 @@ is_crowd = 0
 images=[]
 annotations = []
 
-info = {
-      "description":"CSIRO x MSFT Synthetics Water Waste Project - Dataset 0",
-      "url":"",
-      "version":"1",
-      "year":2020,
-      "contributor":"CSIRO x MSFT Synthetics",
-      "date_created":"10/16/2020"
-   }
-
-licenses = [{
-        "url": "",
-        "id": 0,
-        "name": "License"
-    }]
-
-categories = [
-      {
-         "supercategory":"H_beveragebottle",
-         "id":1,
-         "name":"H_beveragebottle"
-      },
-    {
-         "supercategory":"D_lid",
-         "id":2,
-         "name":"D_lid"
-      },
-    {
-         "supercategory":"S_cup",
-         "id":3,
-         "name":"S_cup"
-      },
-    
-   ]
 
 def createColorMaskImage2(instanceImage, instanceLabels, categoryKey='CategoryPath',
-                          categoryToColorMapping=CATEGORIES, color_cat=color_cat):
+                          categoryToColorMapping=CATEGORY_LIST):
     '''Creates a simplified color image for the instance image using masks
     @param instanceImage: Image with the instanceid
     @param instanceLabels: Result of reading the metadata file
@@ -103,7 +56,7 @@ def createColorMaskImage2(instanceImage, instanceLabels, categoryKey='CategoryPa
         if (not categoryValue in categoryToColorMapping):
             continue
         
-        color = color_cat[color_counter]
+        color = sx.COLOR_CATEGORY[color_counter]
         
         colorMaskImage[instanceImage==id,0] = color[0]
         colorMaskImage[instanceImage==id,1] = color[1]
@@ -113,18 +66,8 @@ def createColorMaskImage2(instanceImage, instanceLabels, categoryKey='CategoryPa
         color_counter += 1
     return colorMaskImage, category_ids
 
-def load_image(path):
-        return cv2.imread(path, cv2.IMREAD_ANYCOLOR | cv2.IMREAD_ANYDEPTH)
-
-def load_json(path):
-    # Load json from file
-    json_file = open(path)
-    js = json.load(json_file)
-    json_file.close()
-    return js
-
 def process_folder(params):
-    global annotation_id, image_id, is_crowd, images, annotations, color_cat, CATEGORIES, cat_id
+    global annotation_id, image_id, is_crowd, images, annotations, CATEGORY_LIST, cat_id
 
     #parses the results
     dataDirectory = params[0]
@@ -138,20 +81,26 @@ def process_folder(params):
     rgbImagePath = results['rgba'][1][0]
     instanceImagePath = results['instance'][1][0]
 
+    ### ONLY NEEDED FOR ZeroWaste DS2 (COMMENT AFFERWARDS)
+    #for id in instanceLabels.keys():
+    #    for label in CATEGORY_LIST:
+    #        if label in instanceLabels[id]['Name']:
+    #            instanceLabels[id]['CategoryPath'] = label
+
+    # READ AND CREATE MASK (COLOR / BINARY)
+    instanceImage = sx.readInstanceImage(instanceImagePath)
+    outMaskImageForViewing, category_idS = createColorMaskImage2(instanceImage, instanceLabels)
+    if category_idS == 'error':
+        print("[removing file] >> mask processing error found in: ", rgbImagePath)
+        return
+    #print("mask cat color ids: ", category_idS)
+
     # READ AND CREATE RGB Image
     rgbImage = sx.readRgbImage(rgbImagePath)
     rgb_path = outPathRoot+"/images/{:06d}.jpg".format(image_id) # e.g. 00000023.jpg
     sx.saveImage(rgbImage, rgb_path)
-    
 
-    # READ AND CREATE MASK (COLOR / BINARY)
-    instanceImage = sx.readInstanceImage(instanceImagePath)
-    outMaskImageForViewing, category_idS = createColorMaskImage2(instanceImage, instanceLabels, color_cat=color_cat)
-    if category_idS == 'error':
-        print("[removing file] >> mask processing error found in: ", rgbImagePath)
-        return
-
-    mask_path = outPathRoot+"/mask/{:06d}.png".format(image_id) # e.g. 00000023.jpg
+    mask_path = outPathRoot+"/color_mask/{:06d}.png".format(image_id) # e.g. 00000023.jpg
     sx.saveImage(outMaskImageForViewing, mask_path)
 
     ### CREATE MASK ANNOTATIONS
@@ -159,7 +108,8 @@ def process_folder(params):
     sub_masks = create_sub_masks(mask_image)
 
     for color, sub_mask in sub_masks.items():
-        category_id = cat_id[category_idS[color]]
+        #print(color, category_idS[color])
+        category_id = CATEGORY_IDS[category_idS[color]]
         annotation = create_sub_mask_annotation(sub_mask, image_id, category_id, annotation_id, is_crowd)
         annotations.append(annotation)
         annotation_id += 1
@@ -180,13 +130,14 @@ def process_folder(params):
 
 
 def main(inPath, outPathRoot):
-    global annotation_id, image_id, is_crowd, images, annotations, color_cat, CATEGORIES, cat_id
-    global info, categories, licenses
+    global annotation_id, image_id, is_crowd, images, annotations, CATEGORY_LIST, cat_id
 
     if not os.path.exists(outPathRoot):
         os.mkdir(outPathRoot)
+    if not os.path.exists(outPathRoot+'/images'):
         os.mkdir(outPathRoot+'/images')
-        os.mkdir(outPathRoot+'/mask')
+    if not os.path.exists(outPathRoot+'/color_mask'):
+        os.mkdir(outPathRoot+'/color_mask')
 
     dataDirectories = sx.listDataDirectories(inPath)
 
@@ -198,10 +149,10 @@ def main(inPath, outPathRoot):
     print("saving annotations to coco as json ")
     ### create COCO JSON annotations
     my_dict = {}
-    my_dict["info"]= info
-    my_dict["licenses"]= licenses
+    my_dict["info"]= COCO_INFO
+    my_dict["licenses"]= COCO_LICENSES
     my_dict["images"]=images
-    my_dict["categories"]=categories
+    my_dict["categories"]=COCO_CATEGORIES
     my_dict["annotations"]=annotations
 
     # TODO: specify coco file locaiton 
@@ -210,11 +161,6 @@ def main(inPath, outPathRoot):
         json_file.write(json.dumps(my_dict))
 
     print(">> complete. find coco json here: ", output_file_path)
-
-
-
-
-
 
 
 # if run from command line it parsers the parameters and runs main function
@@ -226,6 +172,10 @@ if __name__ == "__main__":
     #outPathRoot = sys.argv[2]
     inPathRoot = '/home/redne/ZeroWaste3D/DataManager/sample_maya_data/raw'
     outPathRoot = '/home/redne/ZeroWaste3D/DataManager/sample_maya_data/output'
+    #inPathRoot = '/mnt/zerowastepublic/02-datasets/ds2/raw'
+    #outPathRoot = '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2'
     #inPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/raw/9d15240302634bb99c11b4d275d410cd-bl1u8podu899269tckj3en4a24'
     #outPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/images'
     main(inPathRoot, outPathRoot)
+
+#python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/train_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json

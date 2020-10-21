@@ -45,14 +45,9 @@ Performance evaluation from model training across the different detection models
 
 Below are a highlight in key results from Instance Segmentation training. We report mean average percision (mAP) at 0.5 IOU. For more details please refer to Segmentation directory.  
 
-| Backbone           | Date  |bbox | mask | Model | Log_Results |
-| ------------------ | ---- | ---- | ----- | ----------- | 
-| yfcos_ds2_r50_x00  | 98.0 | 73.0 | Model link - TBD   | [logs](Segmentation/yolact/tools/yolact-fcos-eval/log/yfcos_ds2_r50_x00_102120.txt)         |
-
-
-| Experiment         | Chkpt | Dataset | Date   | bbox | mask | Model Link  | Log Results |
-| ------------------ | ----- | ------- | ------ | ---- | ---- | ----------- | ----------- |
-| yfcos_ds2_r50_x00  | 64k   | ds 2    | 102020 | 98.0 | 73.0 | TBD         | [yfcos_ds2_r50_x00][1]|
+| Experiment         | Chkpt | Dataset | Date   | bbox | mask | Log Results |
+| ------------------ | ----- | ------- | ------ | ---- | ---- | ----------- |
+| yfcos_ds2_r50_x00  | 64k   | ds 2    | 102020 | 98.0 | 73.0 | [yfcos_ds2_r50_x00][1]|
 
 
 #### Accuracy Performance Per Category Bbox mAP 

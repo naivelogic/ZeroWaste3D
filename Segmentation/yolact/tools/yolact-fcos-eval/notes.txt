@@ -1,0 +1,16 @@
+
+conda create --name yfcos python=3.6
+conda activate yfcos
+
+pip install torchvision  or (pip install torch==1.6.0 torchvision==0.7.0)
+pip install cython; pip install -U 'git+https://github.com/facebookresearch/fvcore.git' 'git+https://github.com/cocodataset/cocoapi.git#subdirectory=PythonAPI' 
+python -m pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
+pip install opencv-python pillow pycocotools matplotlib tqdm
+
+pip install tensorboard==1.14.0
+
+
+## Infernece 
+cat > ~/cv/lib/python3.6/site-packages/detectron2/modeling/postprocessing.py
+python train_net.py --config-file configs/Yolact/yfcos_ds2_r50_x0.yaml --eval-only MODEL.WEIGHTS /mnt/omreast_users/phhale/zerowaste/03-experiments/ds2/yolact/yolact_fcos/yfcos_ds2_r50_x00/model_0059999.pth

@@ -1,6 +1,8 @@
 # ZeroWaste3D on Clean Ocean
 
 Objective: Train accurate detector for detecting waste in ocean/waterways to aid in reduction of polution and waste contaimination. 
+
+
 ![](../../media/waterwaste_ds0_102020.gif)
 
 ### Summary

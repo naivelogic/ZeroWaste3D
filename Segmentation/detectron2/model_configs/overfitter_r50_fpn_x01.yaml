@@ -1,0 +1,14 @@
+# https://github.com/facebookresearch/detectron2/blob/master/projects/TensorMask/configs/tensormask_R_50_FPN_6x.yaml
+_BASE_: "./base_configs/base.yaml"
+MODEL:
+  RESNETS:
+    DEPTH: 50
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 256
+    NUM_CLASSES: 3
+SOLVER:
+  STEPS: (7000, 15000, 17600, 18600)
+  IMS_PER_BATCH: 2
+  BASE_LR: 0.00025
+  MAX_ITER: 20000
+OUTPUT_DIR: "./outputs"

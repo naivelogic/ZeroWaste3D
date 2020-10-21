@@ -35,24 +35,35 @@ Based on the work from the previous ZeroWaste 2018 and 2019 Hackathons __[TODO:]
 + `research` - various research topics including AzureML and Model Analysis details
 
 
-### TODO: Summary and Performance of ZeroWaste 2019 Dataset
-
-__TODO__
-
 ## Performance and Results
 
-Performance evaluation from model training across the different detection models utilized the Average Percision (AP). For specific details please refer to [InstanceSegmentation Model Results](InstnaceSegmentation/MaskResults.md).
+_work in progress on sumerizing performance of ZeroWaste 2020 Synthetics Dataset
+
+Performance evaluation from model training across the different detection models utilized the Average Percision (AP). For specific details please refer to [InstanceSegmentation Model Results](Segmentation/README.md).
 
 ### Instance Segmentation (Summary)
 
-Below are a highlight in key results from Instance Segmentation training. For more details please refer to 
+Below are a highlight in key results from Instance Segmentation training. We report mean average percision (mAP) at 0.5 IOU. For more details please refer to Segmentation directory.  
 
-| Backbone           | bbox | mask | RunID                                 | Model | Log_Results |
-| ------------------ | ---- | ---- | ------------------------------------- | ----- | ----------- |
-| yfcos_ds2_r50_x08  | 78.0 | 63.3 | z03 - yolact_fcos_1593517754_6743927a | TBD   | TBD         |
-| yfcos_ds2_r101_x02 | 75.5 | 63.5 | z07 - yolact_fcos_1593518871_e226883d | TBD   | TBD         |
-|                    |      |      |                                       |       |             |
+| Backbone           | Date  |bbox | mask | Model | Log_Results |
+| ------------------ | ---- | ---- | ----- | ----------- | 
+| yfcos_ds2_r50_x00  | 98.0 | 73.0 | Model link - TBD   | [logs](Segmentation/yolact/tools/yolact-fcos-eval/log/yfcos_ds2_r50_x00_102120.txt)         |
 
+
+| Experiment         | Chkpt | Dataset | Date   | bbox | mask | Model Link  | Log Results |
+| ------------------ | ----- | ------- | ------ | ---- | ---- | ----------- | ----------- |
+| yfcos_ds2_r50_x00  | 64k   | ds 2    | 102020 | 98.0 | 73.0 | TBD         | [yfcos_ds2_r50_x00][1]|
+
+
+#### Accuracy Performance Per Category Bbox mAP 
+
+For each of hte pre-category the metrics can be read as `bbox AP` / `seg map AP`
+
+| Experiment         | utensils    | coffeeCup   | clearCup    |
+| ------------------ | ----------- | ----------- | ----------- |
+| yfcos_ds2_r50_x00  | 94.1 / 06.8 | 96.5 / 82.6 | 98.9 / 83.7 |
+
+---
 
 ## Quick Start
 
@@ -68,3 +79,7 @@ Training the various netowrks can be ran locally/VM on a GPU within a Docker con
 - To install detectors models for pure object detection refer to the tensorflow and pytorch approaches in the `Detector/` folder
 - For running in docker (yolact and detectron2) refer to `reserach/AzureML/Docker` folder
 - For training on AzureML refer to the `research/AzureML/` folder
+
+
+---
+[1]: Segmentation/yolact/tools/yolact-fcos-eval/log/yfcos_ds2_r50_x00_102120.txt

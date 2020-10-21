@@ -1,0 +1,19 @@
+_BASE_: "Base-FCOS.yaml"
+OUTPUT_DIR: "yfcos_ds2_r50_x08"
+MODEL:
+  WEIGHTS: "detectron2://ImageNetPretrained/MSRA/R-50.pkl"
+  RESNETS:
+    DEPTH: 50
+INPUT:
+  MIN_SIZE_TRAIN: (800,)
+SOLVER:
+  WARMUP_METHOD: "constant"                 # in x09 change to "linear"
+  WARMUP_FACTOR: 0.3333                     # DEFAULT warmup factore is 1.0 / 3
+  WARMUP_ITERS: 500
+  MAX_ITER: 20000                           # Update from x08
+  IMS_PER_BATCH: 2                          # DEFAULT 1 GPU
+  BASE_LR: 0.00025                          # Update from x08 
+  STEPS: (7000, 15000, 17600, 18600)        # Update from x08 
+DATASETS:
+  TRAIN: ("custom_dataset_train",)
+  TEST: ("custom_dataset_val",)

@@ -1,0 +1,105 @@
+[10/21 21:02:18 fvcore.common.checkpoint]: Loading checkpoint from /mnt/omreast_users/phhale/zerowaste/03-experiments/ds2/yolact/yolact_fcos/yfcos_ds2_r50_x00/model_0064999.pth
+[10/21 21:02:26 d2.data.datasets.coco]: Loaded 79 images in COCO format from /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json
+[10/21 21:02:26 d2.data.build]: Distribution of instances among all 3 categories:
+|  category  | #instances   |  category  | #instances   |  category   | #instances   |
+|:----------:|:-------------|:----------:|:-------------|:-----------:|:-------------|
+|  clearCup  | 172          | coffeeCup  | 163          | ms_utensils | 599          |
+|            |              |            |              |             |              |
+|   total    | 934          |            |              |             |              |
+[10/21 21:02:26 d2.data.common]: Serializing 79 elements to byte tensors and concatenating them all ...
+[10/21 21:02:26 d2.data.common]: Serialized dataset takes 0.43 MiB
+[10/21 21:02:26 d2.data.dataset_mapper]: Augmentations used in training: [ResizeShortestEdge(short_edge_length=(800, 800), max_size=1333, sample_style='choice')]
+[10/21 21:02:26 d2.evaluation.evaluator]: Start inference on 79 images
+/home/redne/Yolact_fcos/fcos/modeling/fcos/fcos_outputs.py:388: UserWarning: This overload of nonzero is deprecated:
+        nonzero()
+Consider using one of the following signatures instead:
+        nonzero(*, bool as_tuple) (Triggered internally at  /pytorch/torch/csrc/utils/python_arg_parser.cpp:766.)
+  per_candidate_nonzeros = per_candidate_inds.nonzero()
+[10/21 21:02:44 d2.evaluation.evaluator]: Inference done 11/79. 1.5022 s / img. ETA=0:01:45
+[10/21 21:02:50 d2.evaluation.evaluator]: Inference done 15/79. 1.4835 s / img. ETA=0:01:38
+[10/21 21:02:56 d2.evaluation.evaluator]: Inference done 19/79. 1.4702 s / img. ETA=0:01:31
+[10/21 21:03:02 d2.evaluation.evaluator]: Inference done 23/79. 1.4664 s / img. ETA=0:01:25
+[10/21 21:03:08 d2.evaluation.evaluator]: Inference done 27/79. 1.4597 s / img. ETA=0:01:18
+[10/21 21:03:14 d2.evaluation.evaluator]: Inference done 31/79. 1.4589 s / img. ETA=0:01:12
+[10/21 21:03:20 d2.evaluation.evaluator]: Inference done 35/79. 1.4614 s / img. ETA=0:01:06
+[10/21 21:03:26 d2.evaluation.evaluator]: Inference done 39/79. 1.4541 s / img. ETA=0:01:00
+[10/21 21:03:31 d2.evaluation.evaluator]: Inference done 43/79. 1.4511 s / img. ETA=0:00:54
+[10/21 21:03:38 d2.evaluation.evaluator]: Inference done 47/79. 1.4581 s / img. ETA=0:00:48
+[10/21 21:03:44 d2.evaluation.evaluator]: Inference done 51/79. 1.4651 s / img. ETA=0:00:42
+[10/21 21:03:50 d2.evaluation.evaluator]: Inference done 55/79. 1.4652 s / img. ETA=0:00:36
+[10/21 21:03:56 d2.evaluation.evaluator]: Inference done 59/79. 1.4628 s / img. ETA=0:00:30
+[10/21 21:04:02 d2.evaluation.evaluator]: Inference done 63/79. 1.4644 s / img. ETA=0:00:24
+[10/21 21:04:09 d2.evaluation.evaluator]: Inference done 67/79. 1.4771 s / img. ETA=0:00:18
+[10/21 21:04:16 d2.evaluation.evaluator]: Inference done 71/79. 1.4813 s / img. ETA=0:00:12
+[10/21 21:04:22 d2.evaluation.evaluator]: Inference done 75/79. 1.4857 s / img. ETA=0:00:06
+[10/21 21:04:28 d2.evaluation.evaluator]: Inference done 79/79. 1.4847 s / img. ETA=0:00:00
+[10/21 21:04:29 d2.evaluation.evaluator]: Total inference time: 0:01:55.064732 (1.554929 s / img per device, on 1 devices)
+[10/21 21:04:29 d2.evaluation.evaluator]: Total inference pure compute time: 0:01:49 (1.484747 s / img per device, on 1 devices)
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Preparing results for COCO format ...
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Saving results to /mnt/omreast_users/phhale/zerowaste/03-experiments/ds2/yolact/yolact_fcos/yfcos_ds2_r50_x00/inference/coco_instances_results.json
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Evaluating predictions ...
+Loading and preparing results...
+DONE (t=0.00s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+COCOeval_opt.evaluate() finished in 0.03 seconds.
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished in 0.01 seconds.
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.965
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.980
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.974
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.748
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.992
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.999
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.312
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.958
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.972
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.748
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.996
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 1.000
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Evaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |  APs   |  APm   |  APl   |
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| 96.500 | 98.020 | 97.359 | 74.785 | 99.160 | 99.860 |
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Per-category bbox AP: 
+| category   | AP     | category   | AP     | category    | AP     |
+|:-----------|:-------|:-----------|:-------|:------------|:-------|
+| clearCup   | 98.910 | coffeeCup  | 96.534 | ms_utensils | 94.055 |
+Loading and preparing results...
+DONE (t=0.01s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *segm*
+COCOeval_opt.evaluate() finished in 0.07 seconds.
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished in 0.01 seconds.
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.577
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.730
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.632
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.052
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.567
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.838
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.254
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.623
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.625
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.083
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.611
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.866
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Evaluation results for segm: 
+|   AP   |  AP50  |  AP75  |  APs  |  APm   |  APl   |
+|:------:|:------:|:------:|:-----:|:------:|:------:|
+| 57.718 | 72.955 | 63.170 | 5.152 | 56.726 | 83.848 |
+[10/21 21:04:30 d2.evaluation.coco_evaluation]: Per-category segm AP: 
+| category   | AP     | category   | AP     | category    | AP    |
+|:-----------|:-------|:-----------|:-------|:------------|:------|
+| clearCup   | 83.670 | coffeeCup  | 82.599 | ms_utensils | 6.884 |
+[10/21 21:04:30 d2.engine.defaults]: Evaluation results for custom_dataset_test in csv format:
+[10/21 21:04:30 d2.evaluation.testing]: copypaste: Task: bbox
+[10/21 21:04:30 d2.evaluation.testing]: copypaste: AP,AP50,AP75,APs,APm,APl
+[10/21 21:04:30 d2.evaluation.testing]: copypaste: 96.4997,98.0198,97.3586,74.7852,99.1599,99.8605
+[10/21 21:04:30 d2.evaluation.testing]: copypaste: Task: segm
+[10/21 21:04:30 d2.evaluation.testing]: copypaste: AP,AP50,AP75,APs,APm,APl
+[10/21 21:04:30 d2.evaluation.testing]: copypaste: 57.7177,72.9549,63.1700,5.1516,56.7257,83.8484

@@ -13,8 +13,8 @@ To be apart of the solution, we seek to assist the reduction of plastic ending u
 
 <table>
   <tr>
-    <td><img src=../../media/waterwaste_ds0_102020.gif width=320 height=240></td>
-    <td><img src=media/ds0_test_crop.png width=320 height=240></td>
+    <td><img src=../../media/waterwaste_ds0_102020.gif ></td>
+    <td><img src=media/ds0_test_crop.png ></td>
   </tr>
 </table> 
 ![]()

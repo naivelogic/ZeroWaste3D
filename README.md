@@ -37,9 +37,20 @@ Based on the work from the previous ZeroWaste 2018 and 2019 Hackathons __[TODO:]
 
 ## Performance and Results
 
-_work in progress on sumerizing performance of ZeroWaste 2020 Synthetics Dataset
+_work in progress on sumerizing performance of ZeroWaste 2020 Synthetics Dataset_
 
-Performance evaluation from model training across the different detection models utilized the Average Percision (AP). For specific details please refer to [InstanceSegmentation Model Results](Segmentation/README.md).
+Performance evaluation from model training across the different detection models utilized the Average Percision (AP). For specific details please refer to [InstanceSegmentation Model Results](Segmentation/README.md). Below are some highlights from the train models below:
+
+<table>
+  <tr>
+    <td> Yolact Resnet50 DS 2 on Real Cafe Senario  </td>
+    <td> Mask RCNN DS 2 Validation Img Set </td>
+  </tr>
+  <tr>
+    <td><img src=media/model_gifs/yolact_r50_ds2_x0.gif width=320 height=240></td>
+    <td><img src=media/zerowaste_ds2_maskrcnn_valoutputs.gif width=320 height=240></td>
+  </tr>
+</table> 
 
 ### Instance Segmentation (Summary)
 
@@ -48,6 +59,7 @@ Below are a highlight in key results from Instance Segmentation training. We rep
 | Experiment         | Chkpt | Dataset | Date   | bbox | mask | Log Results |
 | ------------------ | ----- | ------- | ------ | ---- | ---- | ----------- |
 | yfcos_ds2_r50_x00  | 64k   | ds 2    | 102020 | 98.0 | 73.0 | [yfcos_ds2_r50_x00][1]|
+| yolact_r50_ds2_x0  | 90k   | ds 2    | 101920 | 87.0 | 58.0 | [yolact_d_results][2]|
 
 
 #### Accuracy Performance Per Category Bbox mAP 
@@ -57,6 +69,7 @@ For each of hte pre-category the metrics can be read as `bbox AP` / `seg map AP`
 | Experiment         | utensils    | coffeeCup   | clearCup    |
 | ------------------ | ----------- | ----------- | ----------- |
 | yfcos_ds2_r50_x00  | 94.1 / 06.8 | 96.5 / 82.6 | 98.9 / 83.7 |
+| yolact_r50_ds2_x0  | 76.9 / 10.1 | 91.6 / 82.1 | 88.8 / 80.6 |
 
 ---
 
@@ -78,3 +91,4 @@ Training the various netowrks can be ran locally/VM on a GPU within a Docker con
 
 ---
 [1]: Segmentation/yolact/tools/yolact-fcos-eval/log/yfcos_ds2_r50_x00_102120.txt
+[2]: Segmentation/yolact/yolact_results.md

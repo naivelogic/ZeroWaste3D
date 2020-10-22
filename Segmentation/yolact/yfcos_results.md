@@ -5,6 +5,7 @@
 | Model       | Backbone | Head      | Data | Date   | lr  | AP   | AP50 | AP75 | APs | APm  | APl  | Details           |
 | ----------- | -------- | --------- | ---- | ------ | --- | ---- | ---- | ---- | --- | ---- | ---- | ----------------- |
 | Yolact_fcos | R50-C4   | C5-512ROI | ds 2 | 102020 | 1X  | 57.7 | 72.9 | 63.2 | 5.2 | 56.7 | 83.8 | yfcos_ds2_r50_x00 |
+| Yolact_fcos | R50-C4   | C5-512ROI | ds 1 | 102220 | 1X  | 15.3 | 34.1 | 9.16 | nan | 25.7 | 14.5 | TBD               |
 | Yolact_fcos | R50-C4   | C5-512ROI | ds 1 | 061620 | 1X  | 15.3 | 34.1 | 9.16 | nan | 25.7 | 14.5 | TBD               |
 | Yolact_fcos | R50-C4   | C5-128ROI | ds 2 | 062820 | 1X  | 7.42 | 21.5 | 1.61 | nan | 31.5 | 7.56 | TBD               |
 | Yolact_fcos | TBD      | TBD       | ds 1 | 063020 | TB  | 18.2 | 24.5 | 10.2 | nan | 18.0 | 20.1 | yfcos_R50_ds1_x2  |
@@ -30,6 +31,34 @@ For each of hte pre-category the metrics can be read as `bbox AP` / `seg map AP`
 
 [ds2x01]: configuraiton lines and model downloads
 
+
+
+#### yfcos_ds2_r50_x00 step 90k
+
+10/22/20
+
+
+/mnt/omreast_users/phhale/zerowaste/03-experiments/ds2/yolact/yolact_fcos/yfcos_ds2_r50_x00/model_0089999.pth
+
+Evaluation results for bbox: 
+|   AP   |  AP50  |  AP75  |  APs   |  APm   |  APl   |
+|:------:|:------:|:------:|:------:|:------:|:------:|
+| 96.565 | 98.020 | 97.357 | 73.316 | 99.062 | 99.870 |
+
+Per-category bbox AP: 
+| category   | AP     | category   | AP     | category    | AP     |
+|:-----------|:-------|:-----------|:-------|:------------|:-------|
+| clearCup   | 98.672 | coffeeCup  | 96.534 | ms_utensils | 94.488 |
+
+Evaluation results for segm: 
+|   AP   |  AP50  |  AP75  |  APs  |  APm   |  APl   |
+|:------:|:------:|:------:|:-----:|:------:|:------:|
+| 57.750 | 73.098 | 63.220 | 5.260 | 56.955 | 83.881 |
+
+Per-category segm AP: 
+| category   | AP     | category   | AP     | category    | AP    |
+|:-----------|:-------|:-----------|:-------|:------------|:------|
+| clearCup   | 83.644 | coffeeCup  | 82.531 | ms_utensils | 7.076 |
 
 
 #### yfcos_ds2_r50_x0 step5k

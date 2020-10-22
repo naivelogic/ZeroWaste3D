@@ -192,6 +192,16 @@ zerowaste_ds1_3label = dataset_base.copy({
   'label_map': { 1:  1,  2:  2,  3:  3 }
 })
 
+zerowaste_ds2 = dataset_base.copy({
+  'name': 'MSFT - Project ZeroWaste Syn DS2',
+  'train_info': '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/train_coco_instances.json',
+  'train_images': '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/images',
+  'valid_info': '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json',
+  'valid_images': '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/images',
+  'class_names': ('clearCup', 'coffeeCup', 'ms_utensils'),
+  'label_map': { 1:  1,  2:  2,  3:  3 }
+})
+
 # ----------------------- TRANSFORMS ----------------------- #
 
 resnet_transform = Config({
@@ -792,6 +802,13 @@ yolact_resnet50_zwds1_3label_config = yolact_resnet50_config.copy({
 
     # Image Size
     'max_size': 512,
+})
+
+yolact_r50_ds2_x0_config = yolact_resnet50_config.copy({
+    'name': 'yolact_r50_ds2_x0_101920',    
+    # Dataset stuff
+    'dataset': zerowaste_ds2,
+    'num_classes': len(zerowaste_ds2.class_names) + 1,
 })
 
 # ----------------------- YOLACT++ CONFIGS ----------------------- #

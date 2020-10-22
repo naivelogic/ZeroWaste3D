@@ -28,12 +28,12 @@ COCO_CATEGORIES = [
 
 
 COCO_INFO = {
-    "description": "CSIRO x MSFT Synthetics Water Waste Project - Dataset 0",
+    "description": "CSIRO x MSFT Synthetics Water Waste Project - Dataset 0.5",
     "url": "",
-    "version": "1",
+    "version": "02",
     "year": 2020,
     "contributor": "CSIRO x MSFT Synthetics",
-    "date_created": "10/16/2020"
+    "date_created": "10/22/2020"
 }
 
 COCO_LICENSES = [{

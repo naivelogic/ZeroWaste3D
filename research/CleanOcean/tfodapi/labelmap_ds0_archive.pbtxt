@@ -1,10 +1,10 @@
 item {
   id:1
-  name:'H_beveragebottle'
+  name:'D_lid'
 }
 item {
   id:2
-  name:'D_lid'
+  name:'H_beveragebottle'
 }
 item {
   id:3

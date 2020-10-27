@@ -13,11 +13,10 @@ To be apart of the solution, we seek to assist the reduction of plastic ending u
 
 <table>
   <tr>
-    <td><img src=../../media/waterwaste_ds0_102020.gif ></td>
-    <td><img src=media/ds0_test_crop.png ></td>
+    <td><img src=media/000000001934_detections.jpg height=440></td>
+    <td><img src=media/000000001934_crop00_detections.jpg height=440></td>
   </tr>
 </table> 
-![]()
 
 ### Summary
 
@@ -48,7 +47,9 @@ For each of hte pre-category the metrics can be read as `bbox AP` / `seg map AP`
 | Experiment         | H_beveragebottle    | D_lid   | S_cup    |
 | ------------------ | ----------- | ----------- | ----------- |
 | maskrcnn ds 0.5 10/20  | TBD / TBD | TBD / TBD | TBD / TBD |
+| yolact ds 0.5 10/20*  | 79.4 / 63.8 | 83.6 / 68.8 | 75.3 / 67.2 |
 
+'*' - indicates mAP results on synthetics dataset only
 >TODO: ^ training on ds 0.5 oct 22, 2020. will updated after eval.
 
 
@@ -68,10 +69,12 @@ We utilize 3D models of objects (seen below on the left) to generate the sytheti
 <table>
   <tr>
     <td> Sample of CAD models used for training   </td>
+    <td> Render object Variations </td>
     <td> Render Synthetics obj in simulated + real envir </td>
   </tr>
   <tr>
     <td><img src=../../media/sample_syn_objects.png width=320 height=240></td>
+    <td><img src=../../media/scene_generation.gif width=320 height=240></td>
     <td><img src=media/cisro_ds2_sample_backgrounds.gif width=320 height=240></td>
   </tr>
 </table> 
@@ -85,8 +88,12 @@ Dataset 0 training only utilized sythnetics dataset and only a selected number o
 
 >TODO: detail training experiment
 
-![](media/csiro_ds0_mrcnn.png)
-
+<table>
+  <tr>
+    <td><img src=media/yolact_ds0v5_syn_val.gif width=320 height=240></td>
+    <td><img src=media/csiro_ds0_mrcnn.png width=320 height=240></td>
+  </tr>
+</table> 
 
 
 -----

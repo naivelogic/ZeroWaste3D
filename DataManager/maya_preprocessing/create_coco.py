@@ -4,7 +4,7 @@ from PIL import Image
 import itertools 
 import time
 import maya_parseutils as sx
-
+from tqdm import tqdm
 from submask_utils import create_sub_masks, create_sub_mask_annotation
 
 import sys
@@ -141,7 +141,7 @@ def main(inPath, outPathRoot):
 
     dataDirectories = sx.listDataDirectories(inPath)
 
-    for dataDirectory in dataDirectories:
+    for dataDirectory in tqdm(dataDirectories):
         process_folder([dataDirectory, outPathRoot])
 
     print("processing done")
@@ -161,6 +161,8 @@ def main(inPath, outPathRoot):
         json_file.write(json.dumps(my_dict))
 
     print(">> complete. find coco json here: ", output_file_path)
+    print("last annotation id: ", annotation_id)
+    print("last image_id: ", image_id)
 
 
 # if run from command line it parsers the parameters and runs main function
@@ -170,8 +172,20 @@ if __name__ == "__main__":
     #    sys.exit(0)
     #inPathRoot = sys.argv[1]
     #outPathRoot = sys.argv[2]
-    inPathRoot = '/home/redne/ZeroWaste3D/DataManager/sample_maya_data/raw'
-    outPathRoot = '/home/redne/ZeroWaste3D/DataManager/sample_maya_data/output'
+    #inPathRoot = '/home/redne/ZeroWaste3D/DataManager/sample_maya_data/raw'
+    #outPathRoot = '/home/redne/ZeroWaste3D/DataManager/sample_maya_data/output'
+    #inPathRoot = '/home/redne/ZeroWaste3D/DataManager/dev/sample_maya_data/raw_ds2'
+    #outPathRoot = '/home/redne/ZeroWaste3D/DataManager/dev/sample_maya_data/output_ds2'
+    
+    #inPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5/raw/s-johanz-20201022-022643-ds0-5-2020-10-21-13-31-45/9d15240302634bb99c11b4d275d410cd-vciohl6vnote3ksq9gugqteck4'
+    #outPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5'
+    #inPathRoot = '/home/redne/ZeroWaste3D/DataManager/dev/sample_maya_data/raw_ds1_debug'
+    #outPathRoot = '/home/redne/ZeroWaste3D/DataManager/dev/sample_maya_data/output_ds1ba'
+
+    #inPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/raw/ds1.0/9d15240302634bb99c11b4d275d410cd-ndsina8hov12cdqbsh6qg0gf04'
+    inPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/raw/ds1.1/'
+    outPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm'
+
     #inPathRoot = '/mnt/zerowastepublic/02-datasets/ds2/raw'
     #outPathRoot = '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2'
     #inPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/raw/9d15240302634bb99c11b4d275d410cd-bl1u8podu899269tckj3en4a24'

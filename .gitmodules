@@ -13,6 +13,3 @@
 #[submodule "maskrcnn-benchmark"]
 #	path = maskrcnn-benchmark
 #	url = git@github.com:facebookresearch/maskrcnn-benchmark.git
-[submodule "research/6D_Pose/src/NOCS_CVPR2019"]
-	path = research/6D_Pose/src/NOCS_CVPR2019
-	url = https://github.com/hughw19/NOCS_CVPR2019

@@ -1,10 +1,17 @@
 CATEGORY_IDS = {
     'H_beveragebottle': 1,
     'D_lid': 2,
-    'S_cup': 3
+    'S_cup': 3,
+    'P_foodcontainer':4,
+    'P_beveragecontainer':5,
+    'D_foodcontainer': 6,
+    'H_facemask': 7,
+    'M_aerosol': 8,
+    'H_otherbottle': 9
 }
 
-CATEGORY_LIST = ["H_beveragebottle", "D_lid", "S_cup"]
+CATEGORY_LIST = ["H_beveragebottle", "D_lid", "S_cup", "P_foodcontainer", "P_beveragecontainer", "D_foodcontainer",
+                 "H_facemask", "M_aerosol", "H_otherbottle"]
 
 
 COCO_CATEGORIES = [
@@ -23,17 +30,46 @@ COCO_CATEGORIES = [
         "id": 3,
         "name": "S_cup"
     },
-
+    {
+        "supercategory": "P_foodcontainer",
+        "id": 4,
+        "name": "P_foodcontainer"
+    },
+    {
+        "supercategory": "P_beveragecontainer",
+        "id": 5,
+        "name": "P_beveragecontainer"
+    },
+    {
+        "supercategory": "D_foodcontainer",
+        "id": 6,
+        "name": "D_foodcontainer"
+    },
+    {
+        "supercategory": "H_facemask",
+        "id": 7,
+        "name": "H_facemask"
+    },
+    {
+        "supercategory": "M_aerosol",
+        "id": 8,
+        "name": "M_aerosol"
+    },
+    {
+        "supercategory": "H_otherbottle",
+        "id": 9,
+        "name": "H_otherbottle"
+    }
 ]
 
 
 COCO_INFO = {
-    "description": "CSIRO x MSFT Synthetics Water Waste Project - Dataset 0.5",
+    "description": "CSIRO x MSFT Synthetics Water Waste Project - Dataset v1 Stormdrains",
     "url": "",
-    "version": "02",
+    "version": "1",
     "year": 2020,
     "contributor": "CSIRO x MSFT Synthetics",
-    "date_created": "10/22/2020"
+    "date_created": "11/06/2020"
 }
 
 COCO_LICENSES = [{

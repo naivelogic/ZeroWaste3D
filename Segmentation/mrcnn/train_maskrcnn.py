@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw
 
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
-#pip install tensorflow-gpu==1.13.1 scikit-image cython opencv-python keras==2.2.1
+#pip install tensorflow-gpu==1.15.0 keras==2.2.5 scikit-image cython opencv-python
 
 # Import Matterport's "mrcnn" libraries
 # Set the ROOT_DIR variable to the root directory of the Mask_RCNN git repo

@@ -1,0 +1,99 @@
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images/
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v2/test_coco_instances.json
+OUTPUT_DIR_FILE_PREFIX=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecordV2/ds1_stormV2_test
+NUM_SHARDS=178
+python create_tf_record_shards.py --logtostderr \
+    --image_dir="${TRAIN_IMAGE_DIR}" \
+    --object_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --output_file_prefix="${OUTPUT_DIR_FILE_PREFIX}" \
+    --num_shards="${NUM_SHARDS}" \
+    --include_masks=True
+
+
+#CSIRO ds1_storm_v2 82 # of objects filtered bc bbox and pixels too small - 11/08/20 Train = 791 / test = 178 / val = 20 synthetics (going to val on real)
+
+
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images/
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v2/train_coco_instances.json
+OUTPUT_DIR_FILE_PREFIX=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecordV2/ds1_stormV2_train
+NUM_SHARDS=791
+python dataset/create_coco_tfrecord.py --logtostderr \
+    --image_dir="${TRAIN_IMAGE_DIR}" \
+    --object_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --output_file_prefix="${OUTPUT_DIR_FILE_PREFIX}" \
+    --num_shards="${NUM_SHARDS}" \
+    --include_masks=True
+
+
+
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images/
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v2/test_coco_instances.json
+OUTPUT_DIR_FILE_PREFIX=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecordV2/ds1_stormV2_test
+NUM_SHARDS=178
+python dataset/create_coco_tfrecord.py --logtostderr \
+    --image_dir="${TRAIN_IMAGE_DIR}" \
+    --object_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --output_file_prefix="${OUTPUT_DIR_FILE_PREFIX}" \
+    --num_shards="${NUM_SHARDS}" \
+    --include_masks=True
+
+
+
+
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images/
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v2/val_coco_instances.json
+OUTPUT_DIR_FILE_PREFIX=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecordV2/ds1_stormV2_val
+NUM_SHARDS=20
+python dataset/create_coco_tfrecord.py --logtostderr \
+    --image_dir="${TRAIN_IMAGE_DIR}" \
+    --object_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --output_file_prefix="${OUTPUT_DIR_FILE_PREFIX}" \
+    --num_shards="${NUM_SHARDS}" \
+    --include_masks=True
+
+
+
+-------------
+
+cat > /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/ds1_stormV2_config.yaml
+num_classes: 8
+var_freeze_expr: '(efficientnet|fpn_cells|resample_p6)'
+label_map: {1: H_beveragebottle, 2: D_lid, 3: S_cup, 4: MS_mixedcontainer, 5: P_beveragecontainer, 6: D_foodcontainer, 7: H_facemask, 8: H_otherbottle}
+
+
+
+python automl/efficientdet/main.py --mode=train_and_eval \
+    --training_file_pattern=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecordV2/ds1_stormV2_train*.tfrecord \
+    --validation_file_pattern=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecordV2/ds1_stormV2_test*.tfrecord \
+    --model_name=/home/redne/repos/efficientdet-d2 \
+    --model_dir=/tmp/efficientdet-d2-finetune  \
+    --ckpt=efficientdet-d2  \
+    --train_batch_size=8 \
+    --eval_batch_size=1 --eval_samples=178 \
+    --num_examples_per_epoch=791 --num_epochs=200  \
+    --hparams=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/ds1_stormV2_config.yaml
+
+
+
+
+
+-----------------
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_overlake/images
+TEST_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_overlake/images
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_overlake/coco_ds/train_coco_instances.json
+TEST_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_overlake/coco_ds/test_coco_instances.json
+OUTPUT_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_overlake/tf_ds/
+python create_coco_tf_record.py --logtostderr \
+    --train_image_dir="${TRAIN_IMAGE_DIR}" \
+    --test_image_dir="${TEST_IMAGE_DIR}" \
+    --train_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --test_annotations_file="${TEST_ANNOTATIONS_FILE}" \
+    --output_dir="${OUTPUT_DIR}"
+
+
+!PYTHONPATH=".:$PYTHONPATH"  python dataset/create_coco_tfrecord.py \
+  --image_dir='/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images/' \
+  --object_annotations_file='/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds/train_coco_instances.json' \
+  --output_file_prefix=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tfrecord/ds1_storm_train \
+  --num_shards=796 \
+  --include_masks=True

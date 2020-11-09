@@ -38,7 +38,8 @@ def create_sub_mask_annotation(sub_mask, image_id, category_id, annotation_id, i
     # Note: there could be multiple contours if the object
     # is partially occluded. (E.g. an elephant behind a tree)
     #contours = measure.find_contours(sub_mask, 0.5, positive_orientation='low')
-    padded_binary_mask = np.pad(sub_mask, pad_width=1, mode='constant', constant_values=0)
+    #padded_binary_mask = np.pad(sub_mask, pad_width=1, mode='constant', constant_values=0)
+    padded_binary_mask = np.pad(sub_mask, pad_width=0, mode='constant', constant_values=0)
     contours = measure.find_contours(padded_binary_mask, 0.5, positive_orientation='low')
 
     segmentations = []

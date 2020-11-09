@@ -1,0 +1,3 @@
+num_classes: 9
+var_freeze_expr: '(efficientnet|fpn_cells|resample_p6)'
+label_map: {1: H_beveragebottle, 2: D_lid, 3: S_cup, 4: P_foodcontainer, 5: P_beveragecontainer, 6: D_foodcontainer, 7: H_facemask, 8: M_aerosol, 9: H_otherbottle}

@@ -19,14 +19,9 @@ __Note: __ All datasets should be in linked to `[waterwaste_blob]/data` whose fi
     ```
     ├── ds1
     │   ├── coco_ds
-    │   │   ├── <scene_id>
-    │   │   │   ├── rgb
-    │   │   │   │   ├── <img_id>.png
-    │   │   │   │   └── ...
-    │   │   │   ├── mask_visib
-    │   │   │   ├── depth
-    │   │   │   └── ...
+    │   │   ├── coco_instances.json
     ├── images
+            ├── <img_id>.jpg
     ├── color_mask
     ├── raw
     │   ├── <camera_id><scene_id>
@@ -43,18 +38,29 @@ __Note: __ All datasets should be in linked to `[waterwaste_blob]/data` whose fi
     └── ...
     ```
 
-1. create synthetics dataset in coco annotation
+1. (initial dataset processing) - Preprocess maya syn rendering dataset
+   ```
+   cd /mnt/omreast_users/phhale/csiro_trashnet/datasets
+   mkdir ds2_storm
+   mkdir ds2_storm/raw
+   unzip ds2.zip -d ds2_storm/raw
+   ``` 
+
+2. create synthetics dataset in coco annotation
     ```
-    python maya_preprocessing/create_coco.py /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/raw/ /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/
+    python maya_preprocessing/create_coco.py /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/raw/ /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1
+
+    #zip -r csiro_ready_ds/ds1_storm.zip ds1_storm/images/ ds1_storm/coco_instances.json
+    #zip -r csiro_ready_ds/ds1_overlake.zip ds1_overlake/images/ ds1_overlake/coco_instances.json
     ```
 
-2. split coco dataset into train (80%) and test (20%) 
+3. split coco dataset into train (80%) and test (20%) 
 
     ```
     python coco_tools/cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/coco_ds/train_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/coco_ds/test_coco_instances.json
     ```
 
-3. (optaion if using tfodapi detector) create tf_records
+4. (optaion if using tfodapi detector) create tf_records
 
     ```
     TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1/images

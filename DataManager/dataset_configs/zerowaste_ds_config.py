@@ -63,3 +63,18 @@ COCO_LICENSES = [{
 #        if dataDirectory[0] in zerowaste_ds2_process_error_files:
 #            continue
 #        process_folder([dataDirectory, outPathRoot])
+
+
+## NEED TO ADD below to the create_coco.py is rendiner ds0 from maya to get correct labels
+#instanceImagePath = results['instance'][1][0]
+### ONLY NEEDED FOR ZeroWaste DS2 (COMMENT AFFERWARDS)
+#for id in instanceLabels.keys():
+#    for label in CATEGORY_LIST:
+#        if label in instanceLabels[id]['Name']:
+#            instanceLabels[id]['CategoryPath'] = label
+
+
+#inPathRoot = '/mnt/zerowastepublic/02-datasets/ds2/raw'
+#outPathRoot = '/mnt/omreast_users/phhale/zerowaste/02-datasets/ds2'
+#inPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/raw/9d15240302634bb99c11b4d275d410cd-bl1u8podu899269tckj3en4a24'
+#outPathRoot = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/images'

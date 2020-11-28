@@ -11,8 +11,8 @@ from PIL import Image
 #sys.path.append("../")
 #
 #sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)),"../")
-sys.path.append("/home/redne/ZeroWaste3D/DataManager/")
-from dataset_configs.waterwaste_ds_config import *
+#sys.path.append("/home/redne/ZeroWaste3D/DataManager/")
+#from dataset_configs.waterwaste_ds_config import *
 from tqdm import tqdm
 
 def save_coco(file, info, licenses, images, annotations, categories):
@@ -20,6 +20,9 @@ def save_coco(file, info, licenses, images, annotations, categories):
         json.dump({ 'info': info, 'licenses': licenses, 'images': images, 
             'annotations': annotations, 'categories': categories}, coco, indent=2, sort_keys=True)
 
+#CSIRO_crops 11/23 > for classifier
+#CSIRO_WW_CATEGORIES = ['BG', 'R_footwear', 'H_lid', 'H_unknown/other', 'S_packaging', 'S_label', 'M_aerosol', 'S_otherbag', 'H_plate/bowl', 'M_foodcan/tin', 'S_thinfilmbag', 'S_straw', 'M_beveragecan', 'H_packaging', 'P_foodcontainer', 'P_cardboard', 'S_cup', 'H_utensil', 'P_unknown/other', 'D_cup', 'H_otherbottle', 'D_polystyrene', 'H_toy', 'S_bubblewrap', 'G_beveragebottle', 'P_beveragecontainer', 'D_lid', 'H_beveragebottle', 'P_cup', 'T_wood/timber', 'M_bucket/crate', 'H_bucket/crate', 'R_ball/balloon', 'D_foodcontainer', 'H_facemask', 'PS_string', 'R_tyre']
+#CATEGORY_LIST = ["H_beveragebottle", "D_lid", "S_cup", "P_foodcontainer", "P_beveragecontainer", "D_foodcontainer", "H_facemask", "M_aerosol", "H_otherbottle", "P_cup", "M_beveragecan"]
 
 def main():
     """
@@ -44,25 +47,53 @@ def main():
     #COCO_JSON = '/home/redne/ZeroWaste3D/DataManager/coco_tools/ds1_storm/val.json'
     #CROP_DIR = '/home/redne/ZeroWaste3D/DataManager/coco_tools/ds1_storm/ds1/'
     
-    #CSIRO
+    #CSIRO 11/16
     #IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/'
     #COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/ThreeCategories_TwoCountries_Trashnet.json'
     #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/csiro_crop/'
     #CROP_PEFIX = 'csiro_real_ds0_'
 
-    IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/'
-    COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/ThreeCategories_TwoCountries_Trashnet.json'
-    CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/'   
-    CROP_PEFIX = 'ds2_stormV2_'
+    #ds2_storm_ 11/17
+    #IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/images/'
+    #COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/coco_instances.json'
+    #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/csiro_crop/'   
+    #CROP_PEFIX = 'ds2_storm_'
+
+    #CSIRO_crops 11/21 > for classifier
+    #IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/'
+    #COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/ThreeCategories_TwoCountries_Trashnet.json'
+    #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/v1/csiro_crop/'
+    #CROP_PEFIX = 'csiro_real_ds0_'
+
+    #ds2_storm__crops 11/21 > for classifier
+    #IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/images/'
+    #COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/coco_ds/test_coco_instances.json'
+    #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/v1/csiro_crop/'   
+    #CROP_PEFIX = 'ds2_storm_'
+
+
+    #CSIRO_crops 11/23 > for classifier
+    #CSIRO_WW_CATEGORIES = ['BG', 'R_footwear', 'H_lid', 'H_unknown/other', 'S_packaging', 'S_label', 'M_aerosol', 'S_otherbag', 'H_plate/bowl', 'M_foodcan/tin', 'S_thinfilmbag', 'S_straw', 'M_beveragecan', 'H_packaging', 'P_foodcontainer', 'P_cardboard', 'S_cup', 'H_utensil', 'P_unknown/other', 'D_cup', 'H_otherbottle', 'D_polystyrene', 'H_toy', 'S_bubblewrap', 'G_beveragebottle', 'P_beveragecontainer', 'D_lid', 'H_beveragebottle', 'P_cup', 'T_wood/timber', 'M_bucket/crate', 'H_bucket/crate', 'R_ball/balloon', 'D_foodcontainer', 'H_facemask', 'PS_string', 'R_tyre']
+    #IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/'
+    #COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/TrashNetFull_final.json'
+    #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/v2/crop_images/'
+    #CROP_PEFIX = 'csiro_'
+    #CSIRO_crops 11/23 > for classifier
     
-    PADDING_FACTOR = 2
+    CATEGORY_LIST = ["H_beveragebottle", "D_lid", "S_cup", "P_foodcontainer", "P_beveragecontainer", "D_foodcontainer", "H_facemask", "M_aerosol", "H_otherbottle", "P_cup", "M_beveragecan"]
+
+
+
+    #PADDING_FACTOR = 2
+    PADDING_FACTOR = 1
     
 
     if not os.path.exists(CROP_DIR):
         os.mkdir(CROP_DIR)
     
-    if not os.path.exists(CROP_DIR+"images"):
-        os.mkdir(CROP_DIR+"images")
+    #if not os.path.exists(CROP_DIR+"images"):
+    #    os.mkdir(CROP_DIR+"images")
+
 
 
     #PADDING_FACTOR = 4
@@ -92,6 +123,9 @@ def main():
         image_id = ann['image_id']
         image_fn = images[image_id]['file_name'].replace('\\', '/')
         img = np.array(Image.open(os.path.join(IMAGE_DIR, image_fn)))
+        im_category = CSIRO_WW_CATEGORIES[ann['category_id']]
+        if im_category not in CATEGORY_LIST:
+            continue
         if img.dtype != np.uint8:
             print('Failed to load image '+ image_fn)
             continue
@@ -110,14 +144,18 @@ def main():
         crop_box_pix = crop_box_pix[0]
         detection_padded_cropped_img = img[crop_box_pix[1]:crop_box_pix[3], crop_box_pix[0]:crop_box_pix[2]]
         
-        crop_fn = os.path.join(CROP_DIR,CROP_PEFIX+"{:06d}.jpg".format(coco_image_id)) 
+        #crop_fn = os.path.join(CROP_DIR,CROP_PEFIX+"{:06d}.jpg".format(coco_image_id)) 
+        crop_fn = os.path.join(CROP_DIR,im_category,CROP_PEFIX+im_category+"_{:06d}.jpg".format(image_id)) 
         crop_width = int(detection_padded_cropped_img.shape[1])
         crop_height = int(detection_padded_cropped_img.shape[0])
         crop_rel_size = (crop_width*crop_height)/(image_width*image_height)
         #detection_conf = 1 # for annotated crops, assign confidence of 1
 
+        if not os.path.exists(os.path.dirname(crop_fn)):
+            os.mkdir(os.path.dirname(crop_fn))
         Image.fromarray(detection_padded_cropped_img).save(crop_fn)
-
+        
+        """
         x_offset, y_offset = [round(x) for x in list(offsets[0])]
         bbox_x, bbox_y, bbox_w, bbox_h = [x_offset, y_offset, (crop_width - x_offset*2),  (crop_height - y_offset*2)]
          
@@ -155,9 +193,9 @@ def main():
     my_dict["categories"]=categories
     my_dict["annotations"]=coco_annotations
 
-    with open(os.path.join(CROP_DIR, 'coco_instances.json'), 'w') as outfile:
+    with open(os.path.join(CROP_DIR, CROP_PEFIX+'coco_instances.json'), 'w') as outfile:
             json.dump(my_dict, outfile)
-
+        """
             
 if __name__ == '__main__':
     main()

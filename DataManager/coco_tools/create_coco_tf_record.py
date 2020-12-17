@@ -24,11 +24,44 @@ Example usage:
       --test_annotations_file="${TEST_ANNOTATIONS_FILE}" \
       --output_dir="${OUTPUT_DIR}"
 
-TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5/images
-TEST_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5/images
-TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5/coco_ds/train_coco_instances.json
-TEST_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5/coco_ds/test_coco_instances.json
-OUTPUT_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0v5/tf_ds_cfg/
+
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/images
+TEST_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/images
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/v2/coco_ds/train_coco_instances.json
+TEST_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/v2/coco_ds/test_coco_instances.json
+OUTPUT_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/v2/tf_ds/
+python create_coco_tf_record.py --logtostderr \
+    --train_image_dir="${TRAIN_IMAGE_DIR}" \
+    --test_image_dir="${TEST_IMAGE_DIR}" \
+    --train_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --test_annotations_file="${TEST_ANNOTATIONS_FILE}" \
+    --include_masks=True \
+    --output_dir="${OUTPUT_DIR}"
+
+#/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/csiro_crop/csiro_real_ds0_coco_instances.json
+
+
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/csiro_crop/
+TEST_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/csiro_crop/
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/coco_ds_csiro_0/train_coco_instances.json
+TEST_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/coco_ds_csiro_0/test_coco_instances.json
+OUTPUT_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/coco_ds_csiro_0/tf_ds/
+python create_coco_tf_record.py --logtostderr \
+    --train_image_dir="${TRAIN_IMAGE_DIR}" \
+    --test_image_dir="${TEST_IMAGE_DIR}" \
+    --train_annotations_file="${TRAIN_ANNOTATIONS_FILE}" \
+    --test_annotations_file="${TEST_ANNOTATIONS_FILE}" \
+    --output_dir="${OUTPUT_DIR}" \
+    --include_masks=False
+
+
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/trash_ds/train_coco_instances.json
+
+TRAIN_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images
+TEST_IMAGE_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images
+TRAIN_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/trash_ds/test_coco_instances.json
+TEST_ANNOTATIONS_FILE=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/trash_ds/test_coco_instances.json
+OUTPUT_DIR=/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/trash_ds/
 python create_coco_tf_record.py --logtostderr \
     --train_image_dir="${TRAIN_IMAGE_DIR}" \
     --test_image_dir="${TEST_IMAGE_DIR}" \
@@ -271,4 +304,11 @@ def main(_):
 
 
 if __name__ == '__main__':
+  """
+  FLAGS.train_image_dir = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images'
+  FLAGS.test_image_dir = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/images'
+  FLAGS.train_annotations_file = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds/test_coco_instances.json'
+  FLAGS.test_annotations_file = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds/test_coco_instances.json'
+  FLAGS.output_dir='/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/tf_ds1_v1/'
+  """
   tf.app.run()

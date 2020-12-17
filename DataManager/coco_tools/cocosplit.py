@@ -36,30 +36,31 @@ def main(args):
         annotations = coco['annotations']
         categories = coco['categories']
 
-        number_of_images = len(images)
-
+        #number_of_images = len(images)
+        # DS1 needed to custom filter synth obj until we updated custom pipeline for edge cases and outliers 
+        # ne to normalize a better distribution of bbox and obj locatino during synth rendering pipeline
+        #annotations = custom_annotation_filter(annotations)        # custom coco_ds_v2
+    
         images_with_annotations = funcy.lmap(lambda a: int(a['image_id']), annotations)
 
         if args.having_annotations:
             images = funcy.lremove(lambda i: i['id'] not in images_with_annotations, images)
 
-        x, y = train_test_split(images, train_size=args.split)
+        save_coco(args.train, info, licenses, images, filter_annotations(annotations, images), categories)  # custom coco_ds_v2 comment remainder below (uncomment custom_annotaion_filter )
 
-        save_coco(args.train, info, licenses, x, filter_annotations(annotations, x), categories)
-        save_coco(args.test, info, licenses, y, filter_annotations(annotations, y), categories)
+        #x, y = train_test_split(images, train_size=args.split, random_state=1234)
 
-        print("Saved {} entries in {} and {} in {}".format(len(x), args.train, len(y), args.test))
+        #save_coco(args.train, info, licenses, x, filter_annotations(annotations, x), categories)
+        #save_coco(args.test, info, licenses, y, filter_annotations(annotations, y), categories)
+             
+        #print("Saved {} entries in {} and {} in {}".format(len(x), args.train, len(y), args.test))
 
 
 if __name__ == "__main__":
-    #$ python cocosplit.py --having-annotations -s 0.8 /path/to/your/coco_annotations.json train.json test.json
-    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/coco_instances.json train_coco_instances.json test_coco_instances.json
-    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/train_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/test_coco_instances.json
-    #python cocosplit.py --having-annotations -s 0.9 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/test_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/test_coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds0/coco_ds/val_coco_instances.json
-    # zerowaste ds1 - 10/19
-    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/train_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json
-    #python cocosplit.py --having-annotations -s 0.9 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/val_coco_instances.json
-    # zerowaste ds1 - 10/19
-    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/train_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json
-    #python cocosplit.py --having-annotations -s 0.9 /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/test_coco_instances.json /mnt/omreast_users/phhale/zerowaste/02-datasets/ds2/coco_ds_3class/val_coco_instances.json
+    
+    #CSIRO ds1_storm_v3 (updated with P_cup - 11/11/20) 82 # of objects filtered bc bbox and pixels too small - 11/08/20 Train = 791 / test = 178 / val = 20 synthetics (going to val on real)
+    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v3/coco_instances_v3_original.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v3/coco_instances.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/ds1_storm/coco_ds_v3/NULL.json
+
+    #python cocosplit.py --having-annotations -s 0.8 /mnt/omreast_users/phhale/csiro_trashnet/original_samples/Validation_v0/ThreeCategories_TwoCountries_Trashnet/TrashNet.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/v2/TrashNet.json /mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/v2/NUL.json
+
     main(args)

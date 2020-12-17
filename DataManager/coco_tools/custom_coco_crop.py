@@ -79,9 +79,23 @@ def main():
     #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/crop_ds0/v2/crop_images/'
     #CROP_PEFIX = 'csiro_'
     #CSIRO_crops 11/23 > for classifier
-    
-    CATEGORY_LIST = ["H_beveragebottle", "D_lid", "S_cup", "P_foodcontainer", "P_beveragecontainer", "D_foodcontainer", "H_facemask", "M_aerosol", "H_otherbottle", "P_cup", "M_beveragecan"]
 
+    #CSIRO_crops 12/5 > for classifier
+    IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/ValidationVideo/COCO/Images/'
+    COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/ValidationVideo/COCO/coco_ds/annotations.json'
+    #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/ValidationVideo/crops_ds2_only/'
+    CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/original_samples/ValidationVideo/all_val_crops/'
+    CROP_PEFIX = 'csiro_'
+    
+    #ds2_storm__crops 12/08 > for classifier
+    #IMAGE_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/images/'
+    #COCO_JSON = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/coco_instances.json'
+    #CROP_DIR = '/mnt/omreast_users/phhale/csiro_trashnet/datasets/ds2_storm/crop_ds/'   
+    #CROP_PEFIX = 'ds2_storm_'
+    
+    #CATEGORY_LIST = ["H_beveragebottle", "D_lid", "S_cup", "P_foodcontainer", "P_beveragecontainer", "D_foodcontainer", "H_facemask", "M_aerosol", "H_otherbottle", "P_cup", "M_beveragecan"]
+
+    
 
 
     #PADDING_FACTOR = 2
@@ -108,8 +122,8 @@ def main():
     coco_images = list()
 
     coco_json_data = json.load(open(COCO_JSON, 'r'))
-    info = coco_json_data['info']
-    licenses = coco_json_data['licenses']
+    #info = coco_json_data['info']
+    #licenses = coco_json_data['licenses']
     categories = coco_json_data['categories']
     images = {im['id']:im for im in coco_json_data['images']}
     bboxes_available = any([('bbox' in a.keys()) for a in coco_json_data['annotations']])
@@ -120,12 +134,35 @@ def main():
     for ann in tqdm(coco_json_data['annotations']):
         if 'bbox' not in ann.keys():
             continue
-        image_id = ann['image_id']
-        image_fn = images[image_id]['file_name'].replace('\\', '/')
-        img = np.array(Image.open(os.path.join(IMAGE_DIR, image_fn)))
-        im_category = CSIRO_WW_CATEGORIES[ann['category_id']]
-        if im_category not in CATEGORY_LIST:
+        """
+        try:
+            CATEGORY_LIST = ["BG","H_beveragebottle", "D_lid", "S_cup", "P_foodcontainer", "P_beveragecontainer", "D_foodcontainer", "H_facemask", "M_aerosol", "H_otherbottle", "P_cup", "M_beveragecan"]
+            im_category = CATEGORY_LIST[ann['category_id']]  # Defualt / Standard
+            #im_category = categories[ann['category_id']]['name'] # used __ONLY__ for CSIRO Valv0 Video Images/COCO for folder cropping - 12/5/20
+            
+            if im_category != 'M_beveragecan':
+                continue
+        except:
             continue
+        
+        #if im_category not in CATEGORY_LIST:
+            #continue
+        """
+        image_id = ann['image_id']
+        image_fn = images[image_id]['file_name'].replace('\\', '/')   # Default / Standard
+        #image_fn = 'Frame-{:05d}.jpg'.format(image_id)     # used __ONLY__ for CSIRO Valv0 Video Images/COCO for folder cropping - 12/5/20
+        img = np.array(Image.open(os.path.join(IMAGE_DIR, image_fn)))
+        #im_category = CSIRO_WW_CATEGORIES[ann['category_id']]  # Defualt / Standard
+        #im_category = CSIRO_WW_CATEGORIES[ann['category_id']]  # ds2_storm scrops 12/8/20
+        im_category = categories[ann['category_id']]['name']
+
+        if im_category == 'R_ball/balloon':
+            im_category = 'R_ball_balloon'
+        if im_category == 'H_unknown/other':
+            im_category = 'H_unknown_other'
+        if im_category == 'H_plate/bowl':
+            im_category = 'H_plate_bowl'
+        
         if img.dtype != np.uint8:
             print('Failed to load image '+ image_fn)
             continue
@@ -150,8 +187,9 @@ def main():
         crop_height = int(detection_padded_cropped_img.shape[0])
         crop_rel_size = (crop_width*crop_height)/(image_width*image_height)
         #detection_conf = 1 # for annotated crops, assign confidence of 1
-
+        
         if not os.path.exists(os.path.dirname(crop_fn)):
+            #print("making dir: ", os.path.dirname(crop_fn))
             os.mkdir(os.path.dirname(crop_fn))
         Image.fromarray(detection_padded_cropped_img).save(crop_fn)
         
